@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CryptoLoot</string>
+    <string name="com_auth0_client_id">vlx4Jr4CxWqIaMGn5wf0lOTx29ukbx8E</string>
+    <string name="com_auth0_domain">dev-4d3z8kfx.eu.auth0.com</string>
+    <string name="login">Log in</string>
+    <string name="logout">Log out</string>
+</resources>
