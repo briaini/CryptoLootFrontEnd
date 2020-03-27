@@ -1,11 +1,10 @@
-package com.universityoflimerick.cryptolootfrontend.brian.ben.coinViews;
+package com.universityoflimerick.cryptolootfrontend.ben.bridge.coinViews;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RipView implements Draw, Serializable{
-
+public class LtcView implements Draw, Serializable {
     public Map<String, Object> drawInfoView(String title, int image, String description, long num) {
         Map<String, Object> map = new HashMap<>();
         map.put("Title", title);
@@ -22,5 +21,4 @@ public class RipView implements Draw, Serializable{
         map.put("Image", image);
         return map;
     }
-
 }
