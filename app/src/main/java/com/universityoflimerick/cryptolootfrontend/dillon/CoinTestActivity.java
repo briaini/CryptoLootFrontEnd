@@ -30,7 +30,7 @@ public class CoinTestActivity extends AppCompatActivity {
         sendingET = findViewById(R.id.sendingET);
         receivingET = findViewById(R.id.receivingET);
         amountET = findViewById(R.id.amountET);
-
+    
         BTC = new Crypto("Bitcoin");
         ETH = new Crypto("Ethereum");
         XRP = new Crypto("Ripple");
@@ -72,9 +72,6 @@ public class CoinTestActivity extends AppCompatActivity {
     }
     public void transfer(Coin sending, Coin receiving, BigDecimal amount){
         if(sending.getBalanceInPurseCoin().compareTo(amount)==0 || sending.getBalanceInPurseCoin().compareTo(amount)==1 ){
-            System.out.println("AMOUNT BEFORE TRANSFER IS " + sending.getBalanceInPurseCoin());
-            //amount should be in sending currency, so we need to find the exchange rate
-            System.out.println("SUBTRACTING FROM SENDING" + amount.toString());
             sending.subtract(amount);
             if(sending.getName().equals(receiving.getName())){
                 //do nothing if trying to convert the the same crypto
@@ -86,7 +83,6 @@ public class CoinTestActivity extends AppCompatActivity {
             else if(receiving.getName().equals("Bitcoin")){
                 amount = amount.divide(sending.getExchangeRate(), 8, RoundingMode.HALF_EVEN);
             }
-
 
             System.out.println("NEW AMOUNT IS " + amount.toString());
             receiving.add(amount);
