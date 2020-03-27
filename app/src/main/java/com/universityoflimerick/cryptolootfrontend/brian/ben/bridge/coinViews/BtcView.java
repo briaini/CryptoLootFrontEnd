@@ -1,4 +1,4 @@
-package com.universityoflimerick.cryptolootfrontend.brian.ben.coinViews;
+package com.universityoflimerick.cryptolootfrontend.brian.ben.bridge.coinViews;
 
 import java.io.Serializable;
 import java.util.HashMap;

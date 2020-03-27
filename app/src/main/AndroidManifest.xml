@@ -15,8 +15,8 @@
 
         </activity>
         <activity android:name=".brian.MainActivity"/>
-        <activity android:name=".brian.ben.InfoViewActivity"/>
-        <activity android:name=".brian.ben.QuickViewActivity">
+        <activity android:name=".brian.ben.bridge.InfoViewActivity"/>
+        <activity android:name=".brian.ben.bridge.QuickViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
