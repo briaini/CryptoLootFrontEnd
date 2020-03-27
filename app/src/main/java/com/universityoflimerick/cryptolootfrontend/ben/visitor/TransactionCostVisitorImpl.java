@@ -1,4 +1,4 @@
-package com.universityoflimerick.cryptolootfrontend.brian.ben.visitor;
+package com.universityoflimerick.cryptolootfrontend.ben.visitor;
 
 public class TransactionCostVisitorImpl implements TransactionCostVisitor{
 

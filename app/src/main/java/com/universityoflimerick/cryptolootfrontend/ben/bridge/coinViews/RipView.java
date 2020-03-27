@@ -1,11 +1,11 @@
-package com.universityoflimerick.cryptolootfrontend.brian.ben.bridge.coinViews;
+package com.universityoflimerick.cryptolootfrontend.ben.bridge.coinViews;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BtcView implements Draw, Serializable {
-    @Override
+public class RipView implements Draw, Serializable{
+
     public Map<String, Object> drawInfoView(String title, int image, String description, long num) {
         Map<String, Object> map = new HashMap<>();
         map.put("Title", title);

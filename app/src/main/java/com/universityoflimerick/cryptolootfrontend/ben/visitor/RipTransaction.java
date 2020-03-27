@@ -1,18 +1,26 @@
-package com.universityoflimerick.cryptolootfrontend.brian.ben.visitor;
+package com.universityoflimerick.cryptolootfrontend.ben.visitor;
 
-public class BtcTransaction implements TransactionElement{
+public class RipTransaction implements TransactionElement {
     private String transactionId;
     private String sendAddress;
     private String receiveAdress;
     private double sendAmount;
-    private boolean fastTransfer;
+    private boolean encryptedTransaction;
 
-    public BtcTransaction(String sendAddress, String receiveAdress, double sendAmount, boolean fastTransfer){
+    public RipTransaction(String sendAddress, String receiveAdress, double sendAmount, boolean encryptedTransaction ){
         this.transactionId = "***randomString***";
         this.receiveAdress = receiveAdress;
         this.sendAddress = sendAddress;
         this.sendAmount = sendAmount;
-        this.fastTransfer = fastTransfer;
+        this.encryptedTransaction = encryptedTransaction;
+    }
+
+    public boolean isEncryptedTransaction() {
+        return encryptedTransaction;
+    }
+
+    public void setEncryptedTransaction(boolean encryptedTransaction) {
+        this.encryptedTransaction = encryptedTransaction;
     }
 
     public String getTransactionId() {
@@ -47,17 +55,8 @@ public class BtcTransaction implements TransactionElement{
         this.sendAmount = sendAmount;
     }
 
-    public boolean isFastTransfer() {
-        return fastTransfer;
-    }
-
-    public void setFastTransfer(boolean fastTransfer) {
-        this.fastTransfer = fastTransfer;
-    }
-
     @Override
-    public double accept(TransactionCostVisitor visitor)
-    {
+    public double accept(TransactionCostVisitor visitor) {
         return visitor.visit(this);
     }
 }

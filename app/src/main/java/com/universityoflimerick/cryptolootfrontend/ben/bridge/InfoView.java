@@ -1,8 +1,8 @@
-package com.universityoflimerick.cryptolootfrontend.brian.ben.bridge;
+package com.universityoflimerick.cryptolootfrontend.ben.bridge;
 
 import android.content.Context;
 
-import com.universityoflimerick.cryptolootfrontend.brian.ben.bridge.coinViews.Draw;
+import com.universityoflimerick.cryptolootfrontend.ben.bridge.coinViews.Draw;
 
 import java.io.Serializable;
 import java.util.Map;
