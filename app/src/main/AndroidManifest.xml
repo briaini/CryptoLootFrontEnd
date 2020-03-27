@@ -12,12 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".brian.LoginActivity">
+
+        </activity>
+        <activity android:name=".brian.MainActivity"/>
+        <activity android:name=".brian.ben.InfoViewActivity"/>
+        <activity android:name=".brian.ben.QuickViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".brian.MainActivity"/>
     </application>
 
 </manifest>
