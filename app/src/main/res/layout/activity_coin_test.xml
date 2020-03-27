@@ -13,75 +13,49 @@
         android:text="STUFF SHOULD BE HERE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/ref"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="REFRESH"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/display" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.576" />
 
     <Button
         android:id="@+id/trade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
         android:text="Trade"
         app:layout_constraintBottom_toTopOf="@+id/display"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.415" />
-
-    <EditText
-        android:id="@+id/sendingET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textNoSuggestions"
-        android:text=""
-        android:hint="Sending"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/receivingET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textNoSuggestions"
-        android:text=""
-        android:hint="Receiving"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendingET" />
+        app:layout_constraintTop_toBottomOf="@+id/amountET"
+        app:layout_constraintVertical_bias="0.483" />
 
     <EditText
         android:id="@+id/amountET"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
         android:ems="10"
+        android:hint="Amount"
         android:inputType="textNoSuggestions"
         android:text=""
-        android:hint="Amount"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/receivingET" />
+        app:layout_constraintTop_toBottomOf="@+id/receiveSpinner" />
 
     <Spinner
         android:id="@+id/sendSpinner"
         android:layout_width="405dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amountET" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/receiveSpinner"
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,7 +2,6 @@ package com.universityoflimerick.cryptolootfrontend.dillon;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Date;
 
 public class Coin{
     private String name;
@@ -22,15 +21,12 @@ public class Coin{
         this.amountInPurseCrypto.setScale(8, RoundingMode.HALF_EVEN);
         this.exchangeRate.setScale(8, RoundingMode.HALF_EVEN);
         this.amountInBaseCrypto = divide(exchangeRate);
-        //this.exchangeRate = purseCrypto.getExchangeRate();
     }
     public String getName(){
         return this.name;
     }
     public void add(BigDecimal temp){
-        System.out.println("ADD BEFORE IS " + amountInPurseCrypto.toString());
         amountInPurseCrypto = amountInPurseCrypto.add(temp);
-        System.out.println("ADD AFTER IS " + amountInPurseCrypto.toString());
         refresh();
     }
 
@@ -53,7 +49,6 @@ public class Coin{
     }
     public void refresh(){
         //calculate new balance in base coin
-        //need to override operators
         this.amountInBaseCrypto = divide(exchangeRate);
     }
     public int compareWithBaseCurrency(BigDecimal baseCryptoAmount){
