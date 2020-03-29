@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.universityoflimerick.cryptolootfrontend.R;
+import com.universityoflimerick.cryptolootfrontend.adam.PaymentActivity;
 
 import java.io.IOException;
 
@@ -47,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
         String accessToken = getIntent().getStringExtra(LoginActivity.EXTRA_ACCESS_TOKEN);
         TextView textView = findViewById(R.id.credentials);
         textView.setText(accessToken);
+        Button paymentBtn = findViewById(R.id.payment);
+        paymentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PaymentActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 //
 //    public void getAccessToken(){

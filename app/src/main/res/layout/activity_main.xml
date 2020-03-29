@@ -48,4 +48,14 @@
         android:text="@string/logout"
         android:textColor="@color/blue_text" />
 
+    <Button
+        android:id="@+id/payment"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_general_margin"
+        android:background="@android:color/white"
+        android:text="Make Payment"
+        android:textColor="@color/blue_text" />
+
 </LinearLayout>
