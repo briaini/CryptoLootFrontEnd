@@ -61,7 +61,7 @@ public class Coin{
         int result = this.amountInPurseCrypto.compareTo(purseCryptoAmount);
         return result;
     }
-    public void transfer(Coin receiving, BigDecimal amount){
+    public boolean transfer(Coin receiving, BigDecimal amount){
         if(this.getBalanceInPurseCoin().compareTo(amount)==0 || this.getBalanceInPurseCoin().compareTo(amount)==1 ){
             this.subtract(amount);
             if(this.getName().equals(receiving.getName())){
@@ -89,9 +89,11 @@ public class Coin{
                 System.out.println("After convert to Target is " + amount.toString());
             }
             receiving.add(amount);
+            return true;
             //refresh();
         } else{
             System.out.println(this.getName() + " : NOT ENOUGH TO CONVERT " + amount.toString() + " TO " + receiving.getName());
+            return false;
             //Toast.makeText(CoinTestActivity.getApplicationContext(), "NOT ENOUGH " + this.getName(), Toast.LENGTH_SHORT).show();
         }
 
