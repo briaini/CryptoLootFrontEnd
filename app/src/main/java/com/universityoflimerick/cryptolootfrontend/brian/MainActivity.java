@@ -1,148 +1,68 @@
 package com.universityoflimerick.cryptolootfrontend.brian;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.browser.customtabs.CustomTabsIntent;
 
-import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.universityoflimerick.cryptolootfrontend.R;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import static org.apache.commons.codec.binary.Base64.encodeBase64URLSafeString;
 
 
 public class MainActivity extends AppCompatActivity {
-    private static final String API_URL = "https://dev-4d3z8kfx.eu.auth0.com";// https://dev-4d3z8kfx.eu.auth0.com/  /localhost:3010/public/api
-
-    private static final String API_IDENTIFIER = "https://cryptoloot/api";
+    private static final String API_URL = "https://dev-4d3z8kfx.eu.auth0.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button loginButton = findViewById(R.id.logout);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+
+        Button authBtn = findViewById(R.id.authorizeBtn);
+        authBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
-            }
-        });
-        Button callBtn = findViewById(R.id.testCallBtn);
-        callBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                getAccessToken();
-            }
-        });
-
-        //Obtain the token from the Intent's extras
-        String accessToken = getIntent().getStringExtra(LoginActivity.EXTRA_ACCESS_TOKEN);
-        TextView textView = findViewById(R.id.credentials);
-        textView.setText(accessToken);
-    }
-//
-//    public void getAccessToken(){
-//        HttpResponse<String> response = Unirest.post("https://dev-4d3z8kfx.eu.auth0.com/oauth/token")
-//                .header("content-type", "application/x-www-form-urlencoded")
-//                .body("grant_type=authorization_code&client_id=%24%7Baccount.clientId%7D&code_verifier=YOUR_GENERATED_CODE_VERIFIER&code=YOUR_AUTHORIZATION_CODE&redirect_uri=%24%7Baccount.callback%7D")
-//                .asString();
-//    }
-
-    public void tester() {
-        System.out.println("Bob tester()");
-        String accessToken = getIntent().getStringExtra(LoginActivity.EXTRA_ACCESS_TOKEN);
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .get()
-                .url(API_URL+"/authorize")
-                .addHeader("Authorization", "Bearer " + accessToken)
-                .build();
-//        Request request = new Request.Builder()
-//                .get()
-//                .url(API_URL+"/userinfo")
-//                .addHeader("Authorization", "Bearer " + accessToken)
-//                .build();
-        System.out.println("Prepare for call bob");
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    // API call success
-                    System.out.println("holy fuck bob");
-                    System.out.println("bob you legend-response: " + response.toString());
-                    System.out.println("bob you legend-response.body: " + response.body().string());
-
-                } else {
-                    // API call failed. Check http error code and message
-                    System.out.println("bob, what the fuck man");
+                try {
+                    openCustomTab();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
                 }
             }
         });
     }
 
-//    private void tester2(){
-//        DataAPI loginAPI;
-//        loginAPI = ServiceGenerator.createService(DataAPI.class);
-//
-//        Call<String> call = loginAPI.authenticateLogin();
-//
-//        try {
-//            // TODO: handle loggedInUser authentication
-//            Log.i("OAUTH","before enqueue");
-//            call.enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String>  call, Response<String> response) {
-//                    if (!response.isSuccessful()){
-//                                System.out.println("OAUTH: error logging in. Code: " + response.code());
-//                    }
-//                    if (response.body() != null) {
-//                        Log.i("OAUTH.onSuccess", response.body().toString());
-//
-////                        if(response.body().containsValue("good")) {
-////                            Log.i("onResponse", "success: " +response.body().toString());
-////                            setResult(Activity.RESULT_OK);
-////
-////                            //Complete and destroy login activity once successful
-////                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-////                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-////                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-////                            startActivity(intent);
-////                            finish();
-////                        }
-////                        else {
-////                            Log.i("onResponse","fail: "+response.code() + response.body().toString());
-////                        }
-//                    }
-//                }
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//                    System.out.println("error in call");
-//                }
-//            });
-//
-//        } catch (Exception e) {
-//            Log.i("Authentication.Error","do nothing");
-//        }
-//    }
+    public void openCustomTab() throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        SecureRandom sr = new SecureRandom();
+        byte[] code = new byte[32];
+        sr.nextBytes(code);
+        String verifier = Base64.encodeToString(code, Base64.URL_SAFE | Base64.NO_WRAP | Base64.NO_PADDING);
 
-    private void logout() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.putExtra(LoginActivity.EXTRA_CLEAR_CREDENTIALS, true);
-        startActivity(intent);
-        finish();
+        byte[] bytes = verifier.getBytes("US-ASCII");
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(bytes, 0, bytes.length);
+        byte[] digest = md.digest();
+        //Use Apache "Commons Codec" dependency. Import the Base64 class
+        String challenge = encodeBase64URLSafeString(digest);
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("ShPref", 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("verifier", verifier);
+        editor.commit();
+
+        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+        customTabsIntent.intent.setPackage(CustomTabsHelper.getPackageNameToUse(this));
+        customTabsIntent.launchUrl(this, Uri.parse("https://dev-4d3z8kfx.eu.auth0.com/authorize?response_type=code&client_id=vlx4Jr4CxWqIaMGn5wf0lOTx29ukbx8E&code_challenge=" + challenge +"&code_challenge_method=S256&redirect_uri=iamthewalrusdontyouthinkthejokerlaughsatyou://brian&scope=read:messages&audience=https://cryptoloot/api"));
     }
-
 }
