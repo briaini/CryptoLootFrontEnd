@@ -76,7 +76,29 @@ public class CoinTestActivity extends AppCompatActivity {
             }});
 
     }
-    public void transfer(Coin sending, Coin receiving, BigDecimal amount){
+
+    public void refresh(){
+        String temp = bitcoinPurse.toString();
+        temp += ethereumPurse.toString();
+        temp += ripplePurse.toString();
+        temp += litecoinPurse.toString();
+        disp.setText(temp);
+        System.out.println("REFRESHED");
+    }
+    public void checkInput(String send, String receive, String amount){
+        for (int i = 0; i < myCoins.size(); i++) {
+            if (send.equals(myCoins.get(i).getName())) {
+                for (int j = 0; j < myCoins.size(); j++) {
+                    if (receive.equals(myCoins.get(j).getName())) {
+                        //transfer(myCoins.get(i), myCoins.get(j), new BigDecimal(amount));
+                        myCoins.get(i).transfer(myCoins.get(j), new BigDecimal(amount));
+                        refresh();
+                    }
+                }
+            }
+        }
+    }
+    /*public void transfer(Coin sending, Coin receiving, BigDecimal amount){
         if(sending.getBalanceInPurseCoin().compareTo(amount)==0 || sending.getBalanceInPurseCoin().compareTo(amount)==1 ){
             sending.subtract(amount);
             if(sending.getName().equals(receiving.getName())){
@@ -109,24 +131,5 @@ public class CoinTestActivity extends AppCompatActivity {
             Toast.makeText(this, "NOT ENOUGH " + sending.getName(), Toast.LENGTH_SHORT).show();
         }
 
-    }
-    public void refresh(){
-        String temp = bitcoinPurse.toString();
-        temp += ethereumPurse.toString();
-        temp += ripplePurse.toString();
-        temp += litecoinPurse.toString();
-        disp.setText(temp);
-        System.out.println("REFRESHED");
-    }
-    public void checkInput(String send, String receive, String amount){
-        for (int i = 0; i < myCoins.size(); i++) {
-            if (send.equals(myCoins.get(i).getName())) {
-                for (int j = 0; j < myCoins.size(); j++) {
-                    if (receive.equals(myCoins.get(j).getName())) {
-                        transfer(myCoins.get(i), myCoins.get(j), new BigDecimal(amount));
-                    }
-                }
-            }
-        }
-    }
+    }*/
 }

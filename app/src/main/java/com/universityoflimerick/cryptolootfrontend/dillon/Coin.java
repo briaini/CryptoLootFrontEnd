@@ -1,5 +1,7 @@
 package com.universityoflimerick.cryptolootfrontend.dillon;
 
+import android.widget.Toast;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -58,6 +60,41 @@ public class Coin{
     public int compareWithPurseCurrency(BigDecimal purseCryptoAmount){
         int result = this.amountInPurseCrypto.compareTo(purseCryptoAmount);
         return result;
+    }
+    public void transfer(Coin receiving, BigDecimal amount){
+        if(this.getBalanceInPurseCoin().compareTo(amount)==0 || this.getBalanceInPurseCoin().compareTo(amount)==1 ){
+            this.subtract(amount);
+            if(this.getName().equals(receiving.getName())){
+                //do nothing if trying to convert the the same crypto
+            }
+            //if converting BTC -> Other, multiply amount by receiving coin exchange rate
+            else if(this.getName().equals("Bitcoin")){
+                System.out.println("BTC " + amount.toString() + " BEING CONVERTED TO");
+                amount = amount.multiply(receiving.getExchangeRate());
+                System.out.println("Amount after conversion to " + receiving.getName() + " is " + amount.toString());
+            }
+            //if converting non BTC -> BTC, divide sending coin amount by exchange rate to get amount in BTC
+            else if(receiving.getName().equals("Bitcoin")){
+                System.out.println(this.getName() +" amount " + amount.toString() + " BEING CONVERTED TO");
+                amount = amount.divide(this.getExchangeRate(), 10, RoundingMode.HALF_EVEN);
+                System.out.println(receiving.getName() + " amount " + amount.toString());
+            }
+            //converting non BTC to non BTC
+            //Must convert from sending -> BTC, then BTC -> receiving
+            else {
+                System.out.println(this.getName() + " Amount being converted is " + amount.toString());
+                amount = amount.divide(this.getExchangeRate(), 10, RoundingMode.HALF_EVEN);
+                System.out.println("After convert to BTC is " + amount.toString());
+                amount = amount.multiply(receiving.getExchangeRate());
+                System.out.println("After convert to Target is " + amount.toString());
+            }
+            receiving.add(amount);
+            //refresh();
+        } else{
+            System.out.println(this.getName() + " : NOT ENOUGH TO CONVERT " + amount.toString() + " TO " + receiving.getName());
+            //Toast.makeText(CoinTestActivity.getApplicationContext(), "NOT ENOUGH " + this.getName(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public BigDecimal getBalanceInPurseCoin(){
