@@ -2,24 +2,43 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.universityoflimerick.cryptolootfrontend">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".brian.LoginActivity">
+        <activity android:name=".brian.ProfilePageActivity"></activity>
+        <activity android:name=".brian.CodeExchangeActivity">
+            <intent-filter android:label="testFilter2">
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- scheme://host -->
+                <data
+                    android:host="brian"
+                    android:scheme="iamthewalrusdontyouthinkthejokerlaughsatyou" />
+            </intent-filter>
         </activity>
-        <activity android:name=".brian.MainActivity"/>
-        <activity android:name=".ben.bridge.InfoViewActivity"/>
-        <activity android:name=".ben.bridge.QuickViewActivity">
+        <activity android:name=".brian.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- scheme://host -->
+                <data
+                    android:host="logmeoutplease"
+                    android:scheme="itsabeatlessongman" />
             </intent-filter>
         </activity>
     </application>

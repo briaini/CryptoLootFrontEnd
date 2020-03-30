@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.universityoflimerick.cryptolootfrontend"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -37,5 +37,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation("com.squareup.okhttp3:okhttp:4.4.0")
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "androidx.browser:browser:1.2.0"
+    //noinspection GradleCompatible
+    provided 'com.android.support:customtabs:27.0.2'
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
 }
