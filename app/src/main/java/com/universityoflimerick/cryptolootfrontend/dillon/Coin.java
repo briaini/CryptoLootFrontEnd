@@ -106,4 +106,5 @@ public class Coin{
     public BigDecimal getExchangeRate(){
         return purseCrypto.getExchangeRate();
     }
+
 }
