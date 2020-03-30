@@ -53,14 +53,14 @@ public class Coin{
         //calculate new balance in base coin
         this.amountInBaseCrypto = divide(exchangeRate);
     }
-    public int compareWithBaseCurrency(BigDecimal baseCryptoAmount){
+    /*public int compareWithBaseCurrency(BigDecimal baseCryptoAmount){
         int result = this.amountInBaseCrypto.compareTo(baseCryptoAmount);
         return result;
     }
     public int compareWithPurseCurrency(BigDecimal purseCryptoAmount){
         int result = this.amountInPurseCrypto.compareTo(purseCryptoAmount);
         return result;
-    }
+    }*/
     public boolean transfer(Coin receiving, BigDecimal amount){
         if(this.getBalanceInPurseCoin().compareTo(amount)==0 || this.getBalanceInPurseCoin().compareTo(amount)==1 ){
             this.subtract(amount);
@@ -90,13 +90,11 @@ public class Coin{
             }
             receiving.add(amount);
             return true;
-            //refresh();
-        } else{
+        }
+        else{
             System.out.println(this.getName() + " : NOT ENOUGH TO CONVERT " + amount.toString() + " TO " + receiving.getName());
             return false;
-            //Toast.makeText(CoinTestActivity.getApplicationContext(), "NOT ENOUGH " + this.getName(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
     public BigDecimal getBalanceInPurseCoin(){

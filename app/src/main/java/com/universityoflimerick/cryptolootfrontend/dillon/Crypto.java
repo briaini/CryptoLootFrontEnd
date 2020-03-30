@@ -9,12 +9,9 @@ public class Crypto{
     public Crypto(String cryptoName){
         this.name = cryptoName;
         //sets a default exchange rate in case it isn't set using setExchangeRate, to avoid errors
-        if(this.name=="Bitcoin"){
-            exchangeRateToBase = new BigDecimal("1.0");
-        }
-        else{
-            exchangeRateToBase = new BigDecimal("1.2");
-        }
+        if(this.name=="Bitcoin") exchangeRateToBase = new BigDecimal("1.0");
+        else exchangeRateToBase = new BigDecimal("1.2");
+
         exchangeRateToBase.setScale(8);
     }
     public String getName(){
@@ -23,9 +20,7 @@ public class Crypto{
     public BigDecimal getExchangeRate(){
         return exchangeRateToBase;
     }
-    public void setExchangeRate(){
-        //exchangeRateToBase = new BigDecimal(rate);
-    }
+
     public void setExchangeRate(String rate){
         exchangeRateToBase = new BigDecimal(rate);
     }
