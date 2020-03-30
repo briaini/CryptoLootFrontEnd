@@ -18,7 +18,9 @@ public class coinCareTaker {
 
    public coinMemento getLast(){
    	int index = mementoList.size();
-   	if(index < 0) index=0;
    	return mementoList.get(index-1);
+   }
+   public int getListSize(){
+        return this.mementoList.size();
    }
 }
