@@ -26,19 +26,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".brian.MainActivity">
+
+        </activity>
+        <activity android:name=".dillon.TradeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- scheme://host -->
-                <data
-                    android:host="logmeoutplease"
-                    android:scheme="itsabeatlessongman" />
             </intent-filter>
         </activity>
     </application>
