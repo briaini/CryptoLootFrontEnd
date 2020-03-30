@@ -1,7 +1,6 @@
 package com.universityoflimerick.cryptolootfrontend.dillon;
 
 public class coinOriginator {
-    //state is actually an array of coins now
     private Coin[] state;
 
     public void setState(Coin btc, Coin eth, Coin xrp, Coin ltc){

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class TradeActivity extends AppCompatActivity {
     Coin bitcoinPurse, ethereumPurse, ripplePurse, litecoinPurse;
+    Coin[] temp;
     Crypto BTC, ETH, XRP, LTC;
     TextView disp;
     EditText amountET;
@@ -26,7 +27,7 @@ public class TradeActivity extends AppCompatActivity {
     Spinner sendSpinner, receiveSpinner;
     coinOriginator originator;
     coinCareTaker careTaker;
-    Coin[] temp;
+    int tradeCounter=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,6 @@ public class TradeActivity extends AppCompatActivity {
 
         sendSpinner     = findViewById(R.id.sendSpinner);
         receiveSpinner  = findViewById(R.id.receiveSpinner);
-
         amountET = findViewById(R.id.amountET);
     
         BTC = new Crypto("Bitcoin");
@@ -53,7 +53,6 @@ public class TradeActivity extends AppCompatActivity {
         ripplePurse     = new Coin(XRP.getName(), BTC, XRP, "37588.671246");
         litecoinPurse   = new Coin(LTC.getName(), BTC, LTC, "50");
 
-        System.out.println("CALLING MEMENTO");
         initializeMemento();
 
         myCoins = new ArrayList<>();
@@ -78,24 +77,25 @@ public class TradeActivity extends AppCompatActivity {
         trade = findViewById(R.id.trade);
         trade.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //originator.setState(bitcoinPurse, ethereumPurse, ripplePurse, litecoinPurse);
                 originator.setState(new Coin("Bitcoin", BTC, BTC, bitcoinPurse.getBalanceInPurseCoin().toString()), new Coin("Ethereum", BTC, ETH, ethereumPurse.getBalanceInPurseCoin().toString()), new Coin("Ripple", BTC, XRP, ripplePurse.getBalanceInPurseCoin().toString()), new Coin("Litecoin", BTC, LTC, litecoinPurse.getBalanceInPurseCoin().toString()));
                 careTaker.add(originator.saveStateToMemento());
                 checkInput(sendSpinner.getSelectedItem().toString(), receiveSpinner.getSelectedItem().toString(), amountET.getText().toString() );
+                tradeCounter++;
             }});
 
         revert = findViewById(R.id.revert);
         revert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                originator.getStateFromMemento(careTaker.getLast());
-                temp = originator.getState();
-                bitcoinPurse = temp[0];
-                ethereumPurse = temp[1];
-                ripplePurse = temp[2];
-                litecoinPurse = temp[3];
+                originator.getStateFromMemento(careTaker.get(tradeCounter));
+                temp            = originator.getState();
+                bitcoinPurse    = temp[0];
+                ethereumPurse   = temp[1];
+                ripplePurse     = temp[2];
+                litecoinPurse   = temp[3];
+                tradeCounter--;
+
                 refresh();
-                System.out.println("RESTORED TO PREVIOUS STATE" + temp[0].toString());
-                //checkInput(sendSpinner.getSelectedItem().toString(), receiveSpinner.getSelectedItem().toString(), amountET.getText().toString() );
+                Toast.makeText(TradeActivity.this, "TRANSACTION REVERSED", Toast.LENGTH_SHORT).show();
             }});
     }
 
@@ -105,7 +105,10 @@ public class TradeActivity extends AppCompatActivity {
         temp += ripplePurse.toString();
         temp += litecoinPurse.toString();
         disp.setText(temp);
-        //System.out.println("REFRESHED");
+        myCoins.set(0, bitcoinPurse);
+        myCoins.set(1, ethereumPurse);
+        myCoins.set(2, ripplePurse);
+        myCoins.set(3, litecoinPurse);
     }
     public void checkInput(String send, String receive, String amount){
         boolean result=false;
@@ -113,10 +116,10 @@ public class TradeActivity extends AppCompatActivity {
             if (send.equals(myCoins.get(i).getName())) {
                 for (int j = 0; j < myCoins.size(); j++) {
                     if (receive.equals(myCoins.get(j).getName())) {
-                        //transfer(myCoins.get(i), myCoins.get(j), new BigDecimal(amount));
                         result = myCoins.get(i).transfer(myCoins.get(j), new BigDecimal(amount));
                         refresh();
                         if(result){
+                            //Not necessary to let them know when they've made a trade, they'll see the display update its info
                             //Toast.makeText(this, "SUCCESSFULLY TRADED " + myCoins.get(i).getName(), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(this, "NOT ENOUGH " + myCoins.get(i).getName(), Toast.LENGTH_SHORT).show();
@@ -132,9 +135,7 @@ public class TradeActivity extends AppCompatActivity {
         careTaker = new coinCareTaker();
 
         originator.setState(bitcoinPurse, ethereumPurse, ripplePurse, litecoinPurse);
-        //originator.setState("State #2");
         careTaker.add(originator.saveStateToMemento());
         System.out.println("First saved State: " + originator.getState());
     }
-
 }
