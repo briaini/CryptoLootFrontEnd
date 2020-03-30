@@ -1,15 +1,22 @@
 package com.universityoflimerick.cryptolootfrontend.ben.visitor;
 
+import com.universityoflimerick.cryptolootfrontend.adam.User.User;
+
 public class TransactionCostVisitorImpl implements TransactionCostVisitor{
 
-    private User loggedInUser =  new User();
+    private User loggedInUser;
+
+    public TransactionCostVisitorImpl(User user){
+        loggedInUser = user;
+    }
+
     @Override
     public double visit(BtcTransaction btc)
     {
         double transactionCost;
         //check logged in user
         //if premium them apply transaction discount
-        if(loggedInUser.getUserType().matches("Premium")){
+        if(loggedInUser.getType().matches("Premium")){
             if(btc.isFastTransfer()){
                 //1% transaction cost on bitcoin fast transfers
                 transactionCost = btc.getSendAmount() * 0.01;
@@ -37,7 +44,7 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         double transactionCost;
         //check logged in user
         //if premium them apply transaction discount
-        if(loggedInUser.getUserType().matches("Premium")){
+        if(loggedInUser.getType().matches("Premium")){
             if(!eth.getSendMessage().matches("")){
                 //0.8% transaction cost on ethereum transfer with message attached
                 transactionCost = eth.getSendAmount() * 0.008;
@@ -67,7 +74,7 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         double transactionCost;
 
         //if premium user them apply transaction discount
-        if(loggedInUser.getUserType().matches("Premium")){
+        if(loggedInUser.getType().matches("Premium")){
             if(rip.isEncryptedTransaction()){
                 //0.5% transaction fee on encrypting transaction for premium users
                 transactionCost = rip.getSendAmount() * 0.005;
@@ -96,7 +103,7 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         double transactionCost;
 
         //if premium user them apply transaction discount
-        if(loggedInUser.getUserType().matches("Premium")){
+        if(loggedInUser.getType().matches("Premium")){
             //free transaction fee on ltc for premium users
            transactionCost = 0;
         }
