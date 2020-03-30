@@ -53,6 +53,17 @@ public class PremiumUser implements User {
         return this.type;
     }
 
-    public void pay(String address, BigDecimal amount, String coin){}
-    public void request(String address, BigDecimal amount, String coin){}
+    public void pay(String address, BigDecimal amount, Coin coin){
+        coin.subtract(amount);
+    }
+    public void request(String address, BigDecimal amount, Coin coin){}
+
+    public Coin matchCoin(String coinName){
+        for(int i = 0; i < coins.size(); i++){
+            if (coinName.equals(coins.get(i).getName())) {
+                return coins.get(i);
+            }
+        }
+        return null;
+    }
 }

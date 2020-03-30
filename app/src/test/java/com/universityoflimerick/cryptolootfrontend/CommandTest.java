@@ -12,6 +12,8 @@ import com.universityoflimerick.cryptolootfrontend.dillon.Crypto;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 public class CommandTest {
 
     ActionInvoker actionInvoker;
@@ -22,6 +24,7 @@ public class CommandTest {
     Coin coin;
     Crypto BTC;
 
+
     @Before
     public void setup(){
         actionInvoker = new ActionInvoker();
@@ -30,8 +33,9 @@ public class CommandTest {
         BTC = new Crypto("Bitcoin");
         coin = new Coin(BTC.getName(), BTC, BTC, "5.1234");
         user.addCoin(coin);
-       // payCoin = new PayCoin(user, "abc123", 123.321, "Bitcoin");
-        //requestCoin = new RequestCoin();
+        BigDecimal amount = new BigDecimal(123.321);
+        //payCoin = new PayCoin(user, "abc123", amount, "Bitcoin");
+        //requestCoin = new RequestCoin(user, "abc123", amount, "Bitcoin");
     }
 
     @Test
