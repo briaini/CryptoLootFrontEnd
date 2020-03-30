@@ -83,20 +83,27 @@ public class CoinTestActivity extends AppCompatActivity {
         temp += ripplePurse.toString();
         temp += litecoinPurse.toString();
         disp.setText(temp);
-        System.out.println("REFRESHED");
+        //System.out.println("REFRESHED");
     }
     public void checkInput(String send, String receive, String amount){
+        boolean result=false;
         for (int i = 0; i < myCoins.size(); i++) {
             if (send.equals(myCoins.get(i).getName())) {
                 for (int j = 0; j < myCoins.size(); j++) {
                     if (receive.equals(myCoins.get(j).getName())) {
                         //transfer(myCoins.get(i), myCoins.get(j), new BigDecimal(amount));
-                        myCoins.get(i).transfer(myCoins.get(j), new BigDecimal(amount));
+                        result = myCoins.get(i).transfer(myCoins.get(j), new BigDecimal(amount));
                         refresh();
+                        if(result){
+                            //Toast.makeText(this, "SUCCESSFULLY TRADED " + myCoins.get(i).getName(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "NOT ENOUGH " + myCoins.get(i).getName(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
         }
+
     }
     /*public void transfer(Coin sending, Coin receiving, BigDecimal amount){
         if(sending.getBalanceInPurseCoin().compareTo(amount)==0 || sending.getBalanceInPurseCoin().compareTo(amount)==1 ){
