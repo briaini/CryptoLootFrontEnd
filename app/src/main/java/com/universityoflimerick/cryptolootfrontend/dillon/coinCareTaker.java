@@ -11,12 +11,14 @@ public class coinCareTaker {
     }
 
     public coinMemento get(int index){
-        return mementoList.get(index);
+        coinMemento temp = mementoList.get(index);
+        mementoList.remove(index);
+        return temp;
     }
 
    public coinMemento getLast(){
    	int index = mementoList.size();
    	if(index < 0) index=0;
-   	return mementoList.get(index-2);
+   	return mementoList.get(index-1);
    }
 }
