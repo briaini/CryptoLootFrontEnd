@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-public class CoinTestActivity extends AppCompatActivity {
+public class TradeActivity extends AppCompatActivity {
     Coin bitcoinPurse, ethereumPurse, ripplePurse, litecoinPurse;
     Crypto BTC, ETH, XRP, LTC;
     TextView disp;
