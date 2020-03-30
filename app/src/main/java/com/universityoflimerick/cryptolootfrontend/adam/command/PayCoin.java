@@ -25,7 +25,7 @@ public class PayCoin implements CoinAction {
     private boolean fastTransaction = true;
     private boolean safeTransaction = true;
 
-    public PayCoin(User user, String address, BigDecimal amount, String coin){
+    public PayCoin(User user, String address, BigDecimal amount, Coin coin){
         this.user = user;
         this.address = address;
         this.amount = amount;
@@ -33,34 +33,36 @@ public class PayCoin implements CoinAction {
     }
 
     public void execute(){
-        Double transactionFee = getTransactionFees();
-        user.pay(this.address, this.amount, this.coin);
+        BigDecimal finalAmount = getTransactionFees();
+        user.pay(this.address, finalAmount, this.coin);
     }
 
-    private Double getTransactionFees() {
+    private BigDecimal getTransactionFees() {
         TransactionCostVisitor visitor = new TransactionCostVisitorImpl();
         double fee = 0.0;
         double amountSending = amount.doubleValue();
         TransactionElement element;
 
-        if(coin.matches("Bitcoin")){
-            element = new BtcTransaction("", address, amountSending, fastTransaction);
+        if((coin.getName()).matches("Bitcoin")){
+            element = new BtcTransaction(coin.getAddress(), address, amountSending, fastTransaction);
             fee = element.accept(visitor);
         }
-        else if(coin.matches("Ethereum")){
-            element = new EthTransaction("",address, amountSending, message);
+        else if(coin.getName().matches("Ethereum")){
+            element = new EthTransaction(coin.getAddress(),address, amountSending, message);
             fee = element.accept(visitor);
         }
-        else if(coin.matches("Litecoin")){
-            element = new LtcTransaction("", address, amountSending);
+        else if(coin.getName().matches("Litecoin")){
+            element = new LtcTransaction(coin.getAddress(), address, amountSending);
             fee = element.accept(visitor);
         }
-        else if(coin.matches("Ripple")){
-            element = new RipTransaction("", address, amountSending, safeTransaction);
+        else if(coin.getName().matches("Ripple")){
+            element = new RipTransaction(coin.getAddress(), address, amountSending, safeTransaction);
             fee = element.accept(visitor);
         }
 
-        return fee;
+        BigDecimal transaction = new BigDecimal(fee);
+        BigDecimal newAmount = (this.amount).subtract(transaction);
+        return newAmount;
     }
 
 }
