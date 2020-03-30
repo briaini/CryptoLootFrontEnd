@@ -6,72 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".dillon.TradeActivity">
 
-    <TextView
-        android:id="@+id/display"
-        android:layout_width="320dp"
-        android:layout_height="320dp"
-        android:text="STUFF SHOULD BE HERE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576" />
-
-    <Button
-        android:id="@+id/trade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="23dp"
-        android:text="Trade"
-        app:layout_constraintBottom_toTopOf="@+id/display"
-        app:layout_constraintEnd_toStartOf="@+id/amountET"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amountET"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <EditText
-        android:id="@+id/amountET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:hint="Amount"
-        android:inputType="textNoSuggestions"
-        android:text=""
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/receiveSpinner" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Spinner
-        android:id="@+id/sendSpinner"
-        android:layout_width="405dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/receiveSpinner"
-        android:layout_width="409dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendSpinner" />
+            <EditText
+                android:id="@+id/amountET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="center_horizontal"
+                android:hint="Amount"
+                android:inputType="textNoSuggestions"
+                android:text="" />
 
-    <Button
-        android:id="@+id/revert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="2dp"
-        android:text="UNDO"
-        app:layout_constraintBottom_toTopOf="@+id/display"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/amountET"
-        app:layout_constraintTop_toBottomOf="@+id/amountET"
-        app:layout_constraintVertical_bias="1.0" />
+            <Spinner
+                android:id="@+id/sendSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
+            <Spinner
+                android:id="@+id/receiveSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+
+            <TextView
+                android:id="@+id/display"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="STUFF SHOULD BE HERE" />
+
+            <Button
+                android:id="@+id/trade"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="10dp"
+                android:backgroundTint="#90CAF9"
+                android:text="Trade" />
+
+            <Button
+                android:id="@+id/revert"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:backgroundTint="#90CAF9"
+                android:text="UNDO" />
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,8 +10,10 @@ public class RegularUser implements User {
     private String username;
     private String email;
     private ArrayList<Coin> coins;
+    private String type;
 
     public RegularUser(){
+        this.type = "regular";
         coins = new ArrayList<Coin>();
     }
 
@@ -44,13 +46,25 @@ public class RegularUser implements User {
         coins.add(coin);
     }
 
-    public void pay(String address, BigDecimal amount, String coin){
+    public void setType(String type){
+        this.type = type;
+    }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public void pay(String address, BigDecimal amount, Coin coin){
+        coin.subtract(amount);
+    }
+    public void request(String address, BigDecimal amount, Coin coin){}
+
+    public Coin matchCoin(String coinName){
         for(int i = 0; i < coins.size(); i++){
-            if (coin.equals(coins.get(i).getName())) {
-                    coins.get(i).subtract(amount);
-                    i = coins.size();
+            if (coinName.equals(coins.get(i).getName())) {
+                return coins.get(i);
             }
         }
+        return null;
     }
-    public void request(String address, BigDecimal amount, String coin){}
 }

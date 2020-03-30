@@ -78,8 +78,9 @@ public class PaymentActivity extends AppCompatActivity {
         String address = addressInput.getText().toString();
         String selectedCoin = spinner.getSelectedItem().toString();
         User user = createUser();
+        Coin userCoin = user.matchCoin(selectedCoin);
         BigDecimal decimalAmount = new BigDecimal(amount.replaceAll(",", ""));
-        PayCoin payCoin = new PayCoin(user, address, decimalAmount, selectedCoin);
+        PayCoin payCoin = new PayCoin(user, address, decimalAmount, userCoin);
         actionInvoker.addAction(payCoin);
     }
 
@@ -88,8 +89,9 @@ public class PaymentActivity extends AppCompatActivity {
         String address = addressInput.getText().toString();
         String selectedCoin = spinner.getSelectedItem().toString();
         User user = createUser();
+        Coin userCoin = user.matchCoin(selectedCoin);
         BigDecimal decimalAmount = new BigDecimal(amount.replaceAll(",", ""));
-        RequestCoin reqCoin = new RequestCoin(user, address, decimalAmount, selectedCoin);
+        RequestCoin reqCoin = new RequestCoin(user, address, decimalAmount, userCoin);
         actionInvoker.addAction(reqCoin);
     }
 
