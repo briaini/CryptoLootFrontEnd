@@ -37,7 +37,7 @@ public class PayCoin implements CoinAction {
         user.pay(this.address, finalAmount, this.coin);
     }
 
-    private BigDecimal getTransactionFees() {
+    public BigDecimal getTransactionFees() {
         TransactionCostVisitor visitor = new TransactionCostVisitorImpl(user);
         double fee = 0.0;
         double amountSending = amount.doubleValue();
@@ -45,7 +45,7 @@ public class PayCoin implements CoinAction {
 
         if((coin.getName()).matches("Bitcoin")){
             element = new BtcTransaction(coin.getAddress(), address, amountSending, fastTransaction);
-            fee = element.accept(visitor);
+                            fee = element.accept(visitor);
         }
         else if(coin.getName().matches("Ethereum")){
             element = new EthTransaction(coin.getAddress(),address, amountSending, message);
