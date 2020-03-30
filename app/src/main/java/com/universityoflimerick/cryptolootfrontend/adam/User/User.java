@@ -8,4 +8,5 @@ public interface User {
     void addCoin(Coin coin);
     void pay(String address, BigDecimal amount, String coin);
     void request(String address, BigDecimal amount, String coin);
+    String getType();
 }

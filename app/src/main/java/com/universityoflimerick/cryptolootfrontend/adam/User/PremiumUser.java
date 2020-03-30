@@ -9,8 +9,10 @@ public class PremiumUser implements User {
     private String username;
     private String email;
     private ArrayList<Coin> coins;
+    private String type;
 
     public PremiumUser(){
+        this.type = "premium";
         coins = new ArrayList<Coin>();
     }
 
@@ -41,6 +43,14 @@ public class PremiumUser implements User {
 
     public void addCoin(Coin coin){
         coins.add(coin);
+    }
+
+    public void setType(String type){
+        this.type = type;
+    }
+
+    public String getType(){
+        return this.type;
     }
 
     public void pay(String address, BigDecimal amount, String coin){}
