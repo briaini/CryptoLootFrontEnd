@@ -7,6 +7,7 @@ import java.math.RoundingMode;
 
 public class Coin{
     private String name;
+    private String address;
     private Crypto baseCrypto;
     private Crypto purseCrypto;
     private BigDecimal amountInBaseCrypto;
@@ -23,7 +24,13 @@ public class Coin{
         this.amountInPurseCrypto.setScale(8, RoundingMode.HALF_EVEN);
         this.exchangeRate.setScale(8, RoundingMode.HALF_EVEN);
         this.amountInBaseCrypto = divide(exchangeRate);
+        this.address = "myAddress";
     }
+
+    public String getAddress() {
+        return address;
+    }
+
     public String getName(){
         return this.name;
     }
