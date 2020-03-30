@@ -38,7 +38,7 @@ public class PayCoin implements CoinAction {
     }
 
     private BigDecimal getTransactionFees() {
-        TransactionCostVisitor visitor = new TransactionCostVisitorImpl();
+        TransactionCostVisitor visitor = new TransactionCostVisitorImpl(user);
         double fee = 0.0;
         double amountSending = amount.doubleValue();
         TransactionElement element;
