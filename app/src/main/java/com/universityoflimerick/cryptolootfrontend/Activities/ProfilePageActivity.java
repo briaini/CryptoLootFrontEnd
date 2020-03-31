@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.universityoflimerick.cryptolootfrontend.Model.User.ProfilePage;
 import com.universityoflimerick.cryptolootfrontend.R;
-import com.universityoflimerick.cryptolootfrontend.brian.ClientService;
+import com.universityoflimerick.cryptolootfrontend.Utils.httpClient.ClientService;
 
 import java.io.IOException;
 

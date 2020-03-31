@@ -1,4 +1,4 @@
-package com.universityoflimerick.cryptolootfrontend.adam.command;
+package com.universityoflimerick.cryptolootfrontend.Model.Coin;
 
 public interface CoinAction {
 
