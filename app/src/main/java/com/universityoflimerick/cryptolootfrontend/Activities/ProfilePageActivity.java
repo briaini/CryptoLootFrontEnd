@@ -1,4 +1,4 @@
-package com.universityoflimerick.cryptolootfrontend.brian;
+package com.universityoflimerick.cryptolootfrontend.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.universityoflimerick.cryptolootfrontend.Model.User.ProfilePage;
 import com.universityoflimerick.cryptolootfrontend.R;
+import com.universityoflimerick.cryptolootfrontend.brian.ClientService;
 
 import java.io.IOException;
 

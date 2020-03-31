@@ -1,4 +1,4 @@
-package com.universityoflimerick.cryptolootfrontend.brian;
+package com.universityoflimerick.cryptolootfrontend.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -10,6 +10,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 
+import com.universityoflimerick.cryptolootfrontend.Adapter.CustomTabsHelper;
 import com.universityoflimerick.cryptolootfrontend.R;
 
 import java.io.UnsupportedEncodingException;
