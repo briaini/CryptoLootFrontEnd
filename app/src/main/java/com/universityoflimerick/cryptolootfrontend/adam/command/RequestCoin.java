@@ -25,7 +25,11 @@ public class RequestCoin implements CoinAction {
         this.coin = coin;
     }
 
+    /**
+     * Calls the request method in the user class
+     */
     public void execute(){
+
         user.request(this.address, this.amount, this.coin);
     }
 }
