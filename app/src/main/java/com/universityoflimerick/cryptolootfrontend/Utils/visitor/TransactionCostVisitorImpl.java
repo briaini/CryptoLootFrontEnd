@@ -14,6 +14,7 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         loggedInUser = user;
     }
 
+
     @Override
     public double visit(BtcTransaction btc)
     {
@@ -109,11 +110,11 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         //if premium user them apply transaction discount
         if(loggedInUser.getType().matches("Premium")){
             //free transaction fee on ltc for premium users
-           transactionCost = 0;
+            transactionCost = 0;
         }
         else{
             //2% transaction fee on ltc for free users
-           transactionCost = ltc.getSendAmount() * 0.02;
+            transactionCost = ltc.getSendAmount() * 0.02;
         }
         return transactionCost;
     }

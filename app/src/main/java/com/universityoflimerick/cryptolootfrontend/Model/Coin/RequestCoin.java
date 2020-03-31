@@ -11,6 +11,13 @@ public class RequestCoin implements CoinAction {
     private BigDecimal amount;
     private Coin coin;
 
+    /**
+     * RequestCoin object so users have the ability to request a payment from another account.
+     * @param user
+     * @param address
+     * @param amount
+     * @param coin
+     */
     public RequestCoin(User user, String address, BigDecimal amount, Coin coin){
         this.user = user;
         this.address = address;
@@ -18,7 +25,11 @@ public class RequestCoin implements CoinAction {
         this.coin = coin;
     }
 
+    /**
+     * Calls the request method in the user class
+     */
     public void execute(){
+
         user.request(this.address, this.amount, this.coin);
     }
 }

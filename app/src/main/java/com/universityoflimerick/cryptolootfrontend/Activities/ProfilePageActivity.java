@@ -1,4 +1,4 @@
-package com.universityoflimerick.cryptolootfrontend.Activities;
+package com.universityoflimerick.cryptolootfrontend.brian;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,20 +11,17 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.universityoflimerick.cryptolootfrontend.R;
-import com.universityoflimerick.cryptolootfrontend.Model.User.ProfilePage;
 
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -34,8 +31,6 @@ public class ProfilePageActivity extends AppCompatActivity {
     private EditText eT;
     private String jwt;
     private Handler mHandler;
-    private ImageButton imageButton;
-    private Button b1, b2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +40,6 @@ public class ProfilePageActivity extends AppCompatActivity {
         mHandler = new Handler(Looper.getMainLooper());
 
         eT = findViewById(R.id.profileNameEditText);
-        imageButton = findViewById(R.id.imageButton);
-        b1 = findViewById(R.id.button3);
-        b2 = findViewById(R.id.button4);
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(CodeExchangeActivity.EXTRA_MESSAGE);
@@ -78,35 +70,10 @@ public class ProfilePageActivity extends AppCompatActivity {
                 homePage();
             }
         });
-
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProfilePageActivity.this, TradeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProfilePageActivity.this, PaymentActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProfilePageActivity.this, QuickViewActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void saveDetails() {
-        String url = "http:///192.168.43.208:8080/api/userdetails";
-
+        String url = "http://"+getString(R.string.ipaddress)+":8080/api/userdetails";
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
         JsonObject json = new JsonObject();
@@ -121,8 +88,7 @@ public class ProfilePageActivity extends AppCompatActivity {
                 .addHeader("Authorization", jwt)
                 .build();
 
-        OkHttpClient client = new OkHttpClient();
-        client.newCall(request).enqueue(new Callback() {
+        ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println("Failed call");

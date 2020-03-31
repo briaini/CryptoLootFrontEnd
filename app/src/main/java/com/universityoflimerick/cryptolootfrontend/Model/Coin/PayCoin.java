@@ -23,6 +23,13 @@ public class PayCoin implements CoinAction {
     private boolean fastTransaction = true;
     private boolean safeTransaction = true;
 
+    /**
+     * PayCoin object allowing users to make payment with their coins.
+     * @param user
+     * @param address
+     * @param amount
+     * @param coin
+     */
     public PayCoin(User user, String address, BigDecimal amount, Coin coin){
         this.user = user;
         this.address = address;
@@ -30,12 +37,19 @@ public class PayCoin implements CoinAction {
         this.coin = coin;
     }
 
+    /**
+     * Call the users pay method to make the payment
+     */
     public void execute(){
         BigDecimal finalAmount = getTransactionFees();
         user.pay(this.address, finalAmount, this.coin);
     }
 
-    private BigDecimal getTransactionFees() {
+    /**
+     * Gets the transaction fee of the payment.
+     * @return
+     */
+    public BigDecimal getTransactionFees() {
         TransactionCostVisitor visitor = new TransactionCostVisitorImpl(user);
         double fee = 0.0;
         double amountSending = amount.doubleValue();
@@ -43,7 +57,7 @@ public class PayCoin implements CoinAction {
 
         if((coin.getName()).matches("Bitcoin")){
             element = new BtcTransaction(coin.getAddress(), address, amountSending, fastTransaction);
-            fee = element.accept(visitor);
+                            fee = element.accept(visitor);
         }
         else if(coin.getName().matches("Ethereum")){
             element = new EthTransaction(coin.getAddress(),address, amountSending, message);

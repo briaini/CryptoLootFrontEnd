@@ -90,16 +90,22 @@ public class TradeActivity extends AppCompatActivity {
         revert = findViewById(R.id.revert);
         revert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                originator.getStateFromMemento(careTaker.get(tradeCounter));
-                temp            = originator.getState();
-                bitcoinPurse    = temp[0];
-                ethereumPurse   = temp[1];
-                ripplePurse     = temp[2];
-                litecoinPurse   = temp[3];
-                tradeCounter--;
+                if(careTaker.getListSize() > 1){
+                    originator.getStateFromMemento(careTaker.get(tradeCounter));
+                    temp            = originator.getState();
+                    bitcoinPurse    = temp[0];
+                    ethereumPurse   = temp[1];
+                    ripplePurse     = temp[2];
+                    litecoinPurse   = temp[3];
+                    tradeCounter--;
 
-                refresh();
-                Toast.makeText(TradeActivity.this, "TRANSACTION REVERSED", Toast.LENGTH_SHORT).show();
+                    refresh();
+                    Toast.makeText(TradeActivity.this, "TRANSACTION REVERSED", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(TradeActivity.this, "NO TRADE TO REVERSE", Toast.LENGTH_SHORT).show();
+                }
+
             }});
     }
 
