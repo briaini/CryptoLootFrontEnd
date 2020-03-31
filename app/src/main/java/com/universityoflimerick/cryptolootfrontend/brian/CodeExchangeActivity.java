@@ -21,7 +21,6 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -153,14 +152,13 @@ public class CodeExchangeActivity extends AppCompatActivity {
 
         RequestBody formBody = formBuilder.build();
 
-        OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .post(formBody)
                 .url(url)
                 .addHeader("content-type", "application/x-www-form-urlencoded")
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println("Failed call");
@@ -204,16 +202,15 @@ public class CodeExchangeActivity extends AppCompatActivity {
         return "Bearer " + jwt.getAccess_token();
     }
 
-    private final OkHttpClient client = new OkHttpClient();
 
     public void callApi() throws Exception {
+        String url = "http://"+getString(R.string.ipaddress)+":8080/api/test";
         Request request = new Request.Builder()
-                //.url("http://10.0.2.2:8080/api/test")
-                .url("http://192.168.43.208:8080/api/test")
+                .url(url)
                 .addHeader("Authorization", getJwtHeader())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -243,14 +240,14 @@ public class CodeExchangeActivity extends AppCompatActivity {
     }
 
     public void profilePage(){
+        String url = "http://"+getString(R.string.ipaddress)+":8080/api/profile";
         System.out.println("going to profile page " + getJwtHeader());
         Request request = new Request.Builder()
-               // .url("http://10.0.2.2:8080/api/profile")
-                .url("http://192.168.43.208:8080/api/test")
+                .url(url)
                 .addHeader("Authorization", getJwtHeader())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
