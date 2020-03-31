@@ -57,9 +57,17 @@ public class RegularUser implements User {
         return this.type;
     }
 
+    /**
+     * Pay method which used to send the payment and subtract amount from user
+     * @param address The address of receiver
+     * @param amount The amount of the payment
+     * @param coin The coin being used
+     */
     public void pay(String address, BigDecimal amount, Coin coin){
+        this.sendPayment(address, amount);
         coin.subtract(amount);
     }
+
     public void request(String address, BigDecimal amount, Coin coin){}
 
     public Coin matchCoin(String coinName){
@@ -70,4 +78,6 @@ public class RegularUser implements User {
         }
         return null;
     }
+
+    public void sendPayment(String address, BigDecimal amount){}
 }
