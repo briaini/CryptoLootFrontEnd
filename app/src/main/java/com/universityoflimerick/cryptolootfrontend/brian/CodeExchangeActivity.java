@@ -153,14 +153,13 @@ public class CodeExchangeActivity extends AppCompatActivity {
 
         RequestBody formBody = formBuilder.build();
 
-        OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .post(formBody)
                 .url(url)
                 .addHeader("content-type", "application/x-www-form-urlencoded")
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println("Failed call");
@@ -204,7 +203,6 @@ public class CodeExchangeActivity extends AppCompatActivity {
         return "Bearer " + jwt.getAccess_token();
     }
 
-    private final OkHttpClient client = new OkHttpClient();
 
     public void callApi() throws Exception {
         Request request = new Request.Builder()
@@ -212,7 +210,7 @@ public class CodeExchangeActivity extends AppCompatActivity {
                 .addHeader("Authorization", getJwtHeader())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -248,7 +246,7 @@ public class CodeExchangeActivity extends AppCompatActivity {
                 .addHeader("Authorization", getJwtHeader())
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

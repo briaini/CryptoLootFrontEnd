@@ -19,7 +19,6 @@ import java.security.SecureRandom;
 
 import static org.apache.commons.codec.binary.Base64.encodeBase64URLSafeString;
 
-
 public class MainActivity extends AppCompatActivity {
     private static final String API_URL = "https://dev-4d3z8kfx.eu.auth0.com";
 
