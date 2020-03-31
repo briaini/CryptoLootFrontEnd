@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotEquals;
 public class VisitorTest {
 
     private PayCoin payCoin;
+    private BigDecimal roundedTest, roundedAmount;
 
     /**
      * Instantiates objects for the test to use.
@@ -34,24 +35,30 @@ public class VisitorTest {
         user.addCoin(coin);
         BigDecimal amount = new BigDecimal("1.000");
         payCoin = new PayCoin(user, "abc123", amount, coin);
+        double arithmetic = 1.000 * .02;
+        double newAmount = 1.000 - arithmetic;
+        BigDecimal testAmount = payCoin.getTransactionFees();
+        BigDecimal actualAmount = new BigDecimal(newAmount);
+        BigDecimal roundedTest = testAmount.round(new MathContext(10, RoundingMode.HALF_UP));
+        BigDecimal roundedAmount = actualAmount.round(new MathContext(10, RoundingMode.HALF_UP));
     }
 
     /**
      * Calculates the transaction fee of a transaction of 1 bitcoin
      * Transaction fee is 1% which it compares it to.
-     * Also compares a wrong amount.
      */
     @Test
-    public void visitor_test(){
-        double amount = 1.000 * .02;
-        double newAmount = 1.000 - amount;
-        BigDecimal testAmount = payCoin.getTransactionFees();
-        BigDecimal actualAmount = new BigDecimal(newAmount);
-        BigDecimal roundedTest = testAmount.round(new MathContext(10, RoundingMode.HALF_UP));
-        BigDecimal roundedAmount = actualAmount.round(new MathContext(10, RoundingMode.HALF_UP));
-
+    public void visitor_test_correct(){
         assertEquals(roundedTest, roundedAmount);
+
+    }
+
+    /**
+     * Test an incorrect amount.
+     */
+    @Test
+    public void visitor_test_incorrect(){
         BigDecimal wrongAmount = new BigDecimal(1.1);
-        assertNotEquals(roundedAmount, wrongAmount);
+        assertNotEquals(roundedTest, wrongAmount);
     }
 }

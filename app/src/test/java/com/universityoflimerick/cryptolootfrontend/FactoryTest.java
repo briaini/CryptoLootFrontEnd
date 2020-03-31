@@ -27,14 +27,26 @@ public class FactoryTest {
     }
 
     /**
-     * Tests that regular users have a regular type,
-     * premium users have a premium type and
-     * premium users don't have a regular type.
+     * Tests that regular users have a regular type.
      */
     @Test
-    public void factory_user_creation_test(){
+    public void factory_regular_user_creation_test(){
         assertEquals("regular", rUser.getType());
+    }
+
+    /**
+     * Tests that premium users have a premium type.
+     */
+    @Test
+    public void factory_premium_user_creation_test(){
         assertEquals("premium", pUser.getType());
+    }
+
+    /**
+     * Tests that premium users do not have a regular type.
+     */
+    @Test
+    public void factory_premium_user_is_not_regular_test(){
         assertNotEquals("regular", pUser.getType());
     }
 
