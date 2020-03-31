@@ -206,7 +206,8 @@ public class CodeExchangeActivity extends AppCompatActivity {
 
     public void callApi() throws Exception {
         Request request = new Request.Builder()
-                .url("http://10.0.2.2:8080/api/test")
+                //.url("http://10.0.2.2:8080/api/test")
+                .url("http://192.168.43.208:8080/api/test")
                 .addHeader("Authorization", getJwtHeader())
                 .build();
 
@@ -242,7 +243,8 @@ public class CodeExchangeActivity extends AppCompatActivity {
     public void profilePage(){
         System.out.println("going to profile page " + getJwtHeader());
         Request request = new Request.Builder()
-                .url("http://10.0.2.2:8080/api/profile")
+               // .url("http://10.0.2.2:8080/api/profile")
+                .url("http://192.168.43.208:8080/api/test")
                 .addHeader("Authorization", getJwtHeader())
                 .build();
 

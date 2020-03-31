@@ -14,25 +14,28 @@ import android.widget.Toast;
 import com.universityoflimerick.cryptolootfrontend.R;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
-public class CoinTestActivity extends AppCompatActivity {
+public class TradeActivity extends AppCompatActivity {
     Coin bitcoinPurse, ethereumPurse, ripplePurse, litecoinPurse;
+    Coin[] temp;
     Crypto BTC, ETH, XRP, LTC;
     TextView disp;
     EditText amountET;
-    Button trade;
+    Button trade, revert;
     ArrayList<Coin> myCoins;
     Spinner sendSpinner, receiveSpinner;
+    coinOriginator originator;
+    coinCareTaker careTaker;
+    int tradeCounter=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coin_test);
+        setContentView(R.layout.activity_trade);
 
         sendSpinner     = findViewById(R.id.sendSpinner);
         receiveSpinner  = findViewById(R.id.receiveSpinner);
-
         amountET = findViewById(R.id.amountET);
     
         BTC = new Crypto("Bitcoin");
@@ -49,6 +52,8 @@ public class CoinTestActivity extends AppCompatActivity {
         ethereumPurse   = new Coin(ETH.getName(), BTC, ETH, "2.2");
         ripplePurse     = new Coin(XRP.getName(), BTC, XRP, "37588.671246");
         litecoinPurse   = new Coin(LTC.getName(), BTC, LTC, "50");
+
+        initializeMemento();
 
         myCoins = new ArrayList<>();
         myCoins.add(bitcoinPurse);
@@ -72,9 +77,32 @@ public class CoinTestActivity extends AppCompatActivity {
         trade = findViewById(R.id.trade);
         trade.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                originator.setState(new Coin("Bitcoin", BTC, BTC, bitcoinPurse.getBalanceInPurseCoin().toString()), new Coin("Ethereum", BTC, ETH, ethereumPurse.getBalanceInPurseCoin().toString()), new Coin("Ripple", BTC, XRP, ripplePurse.getBalanceInPurseCoin().toString()), new Coin("Litecoin", BTC, LTC, litecoinPurse.getBalanceInPurseCoin().toString()));
+                careTaker.add(originator.saveStateToMemento());
                 checkInput(sendSpinner.getSelectedItem().toString(), receiveSpinner.getSelectedItem().toString(), amountET.getText().toString() );
+                tradeCounter++;
             }});
 
+        revert = findViewById(R.id.revert);
+        revert.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(careTaker.getListSize() > 1){
+                    originator.getStateFromMemento(careTaker.get(tradeCounter));
+                    temp            = originator.getState();
+                    bitcoinPurse    = temp[0];
+                    ethereumPurse   = temp[1];
+                    ripplePurse     = temp[2];
+                    litecoinPurse   = temp[3];
+                    tradeCounter--;
+
+                    refresh();
+                    Toast.makeText(TradeActivity.this, "TRANSACTION REVERSED", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(TradeActivity.this, "NO TRADE TO REVERSE", Toast.LENGTH_SHORT).show();
+                }
+
+            }});
     }
 
     public void refresh(){
@@ -83,53 +111,37 @@ public class CoinTestActivity extends AppCompatActivity {
         temp += ripplePurse.toString();
         temp += litecoinPurse.toString();
         disp.setText(temp);
-        System.out.println("REFRESHED");
+        myCoins.set(0, bitcoinPurse);
+        myCoins.set(1, ethereumPurse);
+        myCoins.set(2, ripplePurse);
+        myCoins.set(3, litecoinPurse);
     }
     public void checkInput(String send, String receive, String amount){
+        boolean result=false;
         for (int i = 0; i < myCoins.size(); i++) {
             if (send.equals(myCoins.get(i).getName())) {
                 for (int j = 0; j < myCoins.size(); j++) {
                     if (receive.equals(myCoins.get(j).getName())) {
-                        //transfer(myCoins.get(i), myCoins.get(j), new BigDecimal(amount));
-                        myCoins.get(i).transfer(myCoins.get(j), new BigDecimal(amount));
+                        result = myCoins.get(i).transfer(myCoins.get(j), new BigDecimal(amount));
                         refresh();
+                        if(result){
+                            //Not necessary to let them know when they've made a trade, they'll see the display update its info
+                            //Toast.makeText(this, "SUCCESSFULLY TRADED " + myCoins.get(i).getName(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "NOT ENOUGH " + myCoins.get(i).getName(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
         }
     }
-    /*public void transfer(Coin sending, Coin receiving, BigDecimal amount){
-        if(sending.getBalanceInPurseCoin().compareTo(amount)==0 || sending.getBalanceInPurseCoin().compareTo(amount)==1 ){
-            sending.subtract(amount);
-            if(sending.getName().equals(receiving.getName())){
-                //do nothing if trying to convert the the same crypto
-            }
-            //if converting BTC -> Other, multiply amount by receiving coin exchange rate
-            else if(sending.getName().equals("Bitcoin")){
-                System.out.println("BTC " + amount.toString() + " BEING CONVERTED TO");
-                amount = amount.multiply(receiving.getExchangeRate());
-                System.out.println("Amount after conversion to " + receiving.getName() + " is " + amount.toString());
-            }
-            //if converting non BTC -> BTC, divide sending coin amount by exchange rate to get amount in BTC
-            else if(receiving.getName().equals("Bitcoin")){
-                System.out.println(sending.getName() +" amount " + amount.toString() + " BEING CONVERTED TO");
-                amount = amount.divide(sending.getExchangeRate(), 10, RoundingMode.HALF_EVEN);
-                System.out.println(receiving.getName() + " amount " + amount.toString());
-            }
-            //converting non BTC to non BTC
-            //Must convert from sending -> BTC, then BTC -> receiving
-            else {
-                System.out.println(sending.getName() + " Amount being converted is " + amount.toString());
-                amount = amount.divide(sending.getExchangeRate(), 10, RoundingMode.HALF_EVEN);
-                System.out.println("After convert to BTC is " + amount.toString());
-                amount = amount.multiply(receiving.getExchangeRate());
-                System.out.println("After convert to Target is " + amount.toString());
-            }
-            receiving.add(amount);
-            refresh();
-        } else{
-            Toast.makeText(this, "NOT ENOUGH " + sending.getName(), Toast.LENGTH_SHORT).show();
-        }
+    private void initializeMemento(){
+        temp = new Coin[4];
+        originator = new coinOriginator();
+        careTaker = new coinCareTaker();
 
-    }*/
+        originator.setState(bitcoinPurse, ethereumPurse, ripplePurse, litecoinPurse);
+        careTaker.add(originator.saveStateToMemento());
+        System.out.println("First saved State: " + originator.getState());
+    }
 }

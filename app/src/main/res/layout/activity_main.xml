@@ -28,4 +28,5 @@
         android:padding="@dimen/activity_general_margin"
         android:text="Login (Authorize)"
         android:textColor="@color/blue_text" />
+
 </LinearLayout>

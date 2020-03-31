@@ -27,12 +27,10 @@
         </activity>
         <activity android:name=".brian.MainActivity">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
-                <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- scheme://host -->
@@ -41,6 +39,12 @@
                     android:scheme="itsabeatlessongman" />
             </intent-filter>
         </activity>
+        <activity android:name=".ben.bridge.InfoViewActivity">
+        </activity>
+        <activity android:name=".ben.bridge.QuickViewActivity">
+        </activity>
+        <activity android:name=".adam.PaymentActivity"></activity>
+        <activity android:name=".dillon.TradeActivity"/>
     </application>
 
 </manifest>
