@@ -30,6 +30,10 @@ public class PaymentActivity extends AppCompatActivity {
     Button payButton, requestButton, executeButton, cancelButton;
     ActionInvoker actionInvoker;
 
+    /**
+     * UI Payment screen activity.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -73,6 +77,9 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Adds a payment command to the actionInvoker.
+     */
     public void pay(){
         String amount = amountInput.getText().toString();
         String address = addressInput.getText().toString();
@@ -84,6 +91,9 @@ public class PaymentActivity extends AppCompatActivity {
         actionInvoker.addAction(payCoin);
     }
 
+    /**
+     * Adds a request command to the actionInvoker.
+     */
     public void request(){
         String amount = amountInput.getText().toString();
         String address = addressInput.getText().toString();
@@ -95,6 +105,10 @@ public class PaymentActivity extends AppCompatActivity {
         actionInvoker.addAction(reqCoin);
     }
 
+    /**
+     * Object instantiation
+     * @return
+     */
     public User createUser(){
         UserFactory uf = new UserFactory();
         User user = uf.getUser("regular");
@@ -105,6 +119,9 @@ public class PaymentActivity extends AppCompatActivity {
         return user;
     }
 
+    /**
+     * return to previous activity.
+     */
     public void cancel(){
         showNextActivity();
     }

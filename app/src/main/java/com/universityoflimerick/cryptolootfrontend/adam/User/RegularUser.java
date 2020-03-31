@@ -12,6 +12,9 @@ public class RegularUser implements User {
     private ArrayList<Coin> coins;
     private String type;
 
+    /**
+     * User with a regular type.
+     */
     public RegularUser(){
         this.type = "regular";
         coins = new ArrayList<Coin>();

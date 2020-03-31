@@ -5,6 +5,11 @@ package com.universityoflimerick.cryptolootfrontend.adam.User;
  */
 public class UserFactory {
 
+    /**
+     * Takes in a string of the user type. Instantiates a user of that type.
+     * @param userType
+     * @return
+     */
     public User getUser(String userType){
         if(userType == null){
             return null;

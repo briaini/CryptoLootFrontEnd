@@ -11,6 +11,9 @@ public class PremiumUser implements User {
     private ArrayList<Coin> coins;
     private String type;
 
+    /**
+     * User with a premium type.
+     */
     public PremiumUser(){
         this.type = "premium";
         coins = new ArrayList<Coin>();
