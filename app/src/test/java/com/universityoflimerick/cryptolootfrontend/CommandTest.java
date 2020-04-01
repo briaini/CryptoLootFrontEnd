@@ -1,13 +1,11 @@
 package com.universityoflimerick.cryptolootfrontend;
 
-import com.universityoflimerick.cryptolootfrontend.adam.User.User;
-import com.universityoflimerick.cryptolootfrontend.adam.User.UserFactory;
-import com.universityoflimerick.cryptolootfrontend.adam.command.ActionInvoker;
-import com.universityoflimerick.cryptolootfrontend.adam.command.CoinAction;
-import com.universityoflimerick.cryptolootfrontend.adam.command.PayCoin;
-import com.universityoflimerick.cryptolootfrontend.adam.command.RequestCoin;
-import com.universityoflimerick.cryptolootfrontend.dillon.Coin;
-import com.universityoflimerick.cryptolootfrontend.dillon.Crypto;
+import com.universityoflimerick.cryptolootfrontend.Model.User.User;
+import com.universityoflimerick.cryptolootfrontend.Utils.factory.UserFactory;
+import com.universityoflimerick.cryptolootfrontend.Utils.command.ActionInvoker;
+import com.universityoflimerick.cryptolootfrontend.Utils.command.CoinAction;
+import com.universityoflimerick.cryptolootfrontend.Model.Coin.Coin;
+import com.universityoflimerick.cryptolootfrontend.Model.Coin.Crypto;
 
 import org.junit.Before;
 import org.junit.Test;
