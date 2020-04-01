@@ -21,4 +21,8 @@ public class CoinCareTaker {
    	if(index < 0) index=0;
    	return mementoList.get(index-1);
    }
+
+    public int getListSize(){
+        return this.mementoList.size();
+    }
 }
