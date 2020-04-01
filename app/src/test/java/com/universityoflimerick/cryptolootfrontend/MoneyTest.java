@@ -41,10 +41,12 @@ public class MoneyTest {
     }
 
     /**
-     * Test that the transfer results are correct.
+     * Test that a transfer of bitcoin to ethereum works with a
+     * specifeid conversion rate
      */
     @Test
     public void money_correct_transfer_test(){
+
         assertEquals(roundedTest, roundedAmount);
     }
 

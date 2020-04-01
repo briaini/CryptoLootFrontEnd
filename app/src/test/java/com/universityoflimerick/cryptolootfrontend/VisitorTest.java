@@ -26,8 +26,6 @@ public class VisitorTest {
      */
     @Before
     public void setup(){
-        //User user, String address, BigDecimal amount, Coin coin
-        //transactionCost = btc.getSendAmount() * 0.01;
         UserFactory userFactory = new UserFactory();
         User user = userFactory.getUser("regular");
         Crypto BTC = new Crypto("Bitcoin");
@@ -50,7 +48,6 @@ public class VisitorTest {
     @Test
     public void visitor_test_correct(){
         assertEquals(roundedTest, roundedAmount);
-
     }
 
     /**

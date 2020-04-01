@@ -48,6 +48,7 @@ public class CommandTest {
         transaction = new PayCoin(transactionUser, "", transactionAmount, coin);
         actionInvoker.addAction(payCoin);
         actionInvoker.executeAction();
+
         userCoin = user.matchCoin(coin.getName());
         BigDecimal coinAmount = userCoin.getBalanceInPurseCoin();
         BigDecimal transAmount = transaction.getTransactionFees();

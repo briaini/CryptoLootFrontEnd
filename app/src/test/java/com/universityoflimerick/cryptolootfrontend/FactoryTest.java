@@ -31,6 +31,7 @@ public class FactoryTest {
      */
     @Test
     public void factory_regular_user_creation_test(){
+
         assertEquals("regular", rUser.getType());
     }
 
