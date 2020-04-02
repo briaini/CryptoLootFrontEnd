@@ -1,7 +1,7 @@
 package com.universityoflimerick.cryptolootfrontend;
 
-import com.universityoflimerick.cryptolootfrontend.adam.User.User;
-import com.universityoflimerick.cryptolootfrontend.adam.User.UserFactory;
+import com.universityoflimerick.cryptolootfrontend.Model.User.User;
+import com.universityoflimerick.cryptolootfrontend.Utils.factory.UserFactory;
 
 import org.junit.Before;
 import org.junit.Test;
