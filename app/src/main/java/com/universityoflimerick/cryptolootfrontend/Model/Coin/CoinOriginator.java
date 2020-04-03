@@ -1,6 +1,10 @@
 package com.universityoflimerick.cryptolootfrontend.Model.Coin;
 
 public class CoinOriginator {
+    /**this class is a part of the Memento pattern, used to restore the state of object(s).
+     * a instance of CoinOriginator is used to create Mementos and retrieve/restore states from Mementos
+     * @param state is an array that holds all our Coin values, so the state can be returned as a single object
+     *  */
     private Coin[] state;
 
     public void setState(Coin btc, Coin eth, Coin xrp, Coin ltc){
