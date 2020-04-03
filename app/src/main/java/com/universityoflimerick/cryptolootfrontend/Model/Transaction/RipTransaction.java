@@ -17,6 +17,16 @@ public class RipTransaction implements TransactionElement {
         this.encryptedTransaction = encryptedTransaction;
     }
 
+    /**
+     * accept method calls the visit method for a specified visitor object
+     * @return double which represents the transaction cost
+     * @param visitor is the object that we call the visit method on and pass an instance of this RipTransaction class
+     */
+    @Override
+    public double accept(TransactionCostVisitor visitor) {
+        return visitor.visit(this);
+    }
+
     public boolean isEncryptedTransaction() {
         return encryptedTransaction;
     }
@@ -57,8 +67,4 @@ public class RipTransaction implements TransactionElement {
         this.sendAmount = sendAmount;
     }
 
-    @Override
-    public double accept(TransactionCostVisitor visitor) {
-        return visitor.visit(this);
-    }
 }

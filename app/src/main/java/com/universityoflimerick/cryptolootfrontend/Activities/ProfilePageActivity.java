@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -33,6 +34,8 @@ public class ProfilePageActivity extends AppCompatActivity {
     private EditText eT;
     private String jwt;
     private Handler mHandler;
+    private ImageButton imageButton;
+    private Button b1, b2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,9 @@ public class ProfilePageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(CodeExchangeActivity.EXTRA_MESSAGE);
         jwt = intent.getStringExtra(CodeExchangeActivity.EXTRA_MESSAGETWO);
+        imageButton = findViewById(R.id.imageButton);
+        b1 = findViewById(R.id.button3);
+        b2 = findViewById(R.id.button4);
 
         System.out.println("beforeGSON " + message);
 
@@ -70,6 +76,39 @@ public class ProfilePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 homePage();
+            }
+        });
+
+        Button msgButton = findViewById(R.id.msgButton);
+        msgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfilePageActivity.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfilePageActivity.this, TradeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfilePageActivity.this, PaymentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfilePageActivity.this, QuickViewActivity.class);
+                startActivity(intent);
             }
         });
     }
