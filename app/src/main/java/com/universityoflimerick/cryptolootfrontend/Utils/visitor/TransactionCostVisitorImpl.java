@@ -14,13 +14,17 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         loggedInUser = user;
     }
 
-
+    /**
+     * accept method calls the visit method for a specified visitor object
+     * @return double which represents the transaction cost
+     * @param btc is a BtcTransaction object which contains the details of the transaction
+     */
     @Override
     public double visit(BtcTransaction btc)
     {
         double transactionCost;
-        //check logged in user
-        //if premium them apply transaction discount
+
+        //check if the logged in user is premium them apply transaction discount
         if(loggedInUser.getType().matches("Premium")){
             if(btc.isFastTransfer()){
                 //1% transaction cost on bitcoin fast transfers
@@ -43,12 +47,18 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         return transactionCost;
     }
 
+
+    /**
+     * accept method calls the visit method for a specified visitor object
+     * @return double which represents the transaction cost
+     * @param eth is a EthTransaction object which contains the details of the transaction
+     */
     @Override
     public double visit(EthTransaction eth)
     {
         double transactionCost;
-        //check logged in user
-        //if premium them apply transaction discount
+
+        //check if the logged in user is premium them apply transaction discount
         if(loggedInUser.getType().matches("Premium")){
             if(!eth.getSendMessage().matches("")){
                 //0.8% transaction cost on ethereum transfer with message attached
@@ -73,12 +83,17 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         return transactionCost;
     }
 
+    /**
+     * accept method calls the visit method for a specified visitor object
+     * @return double which represents the transaction cost
+     * @param rip is a RipTransaction object which contains the details of the transaction
+     */
     @Override
     public double visit(RipTransaction rip)
     {
         double transactionCost;
 
-        //if premium user them apply transaction discount
+        //check if the logged in user is premium them apply transaction discount
         if(loggedInUser.getType().matches("Premium")){
             if(rip.isEncryptedTransaction()){
                 //0.5% transaction fee on encrypting transaction for premium users
@@ -102,12 +117,17 @@ public class TransactionCostVisitorImpl implements TransactionCostVisitor{
         return transactionCost;
     }
 
+    /**
+     * accept method calls the visit method for a specified visitor object
+     * @return double which represents the transaction cost
+     * @param ltc is a LtcTransaction object which contains the details of the transaction
+     */
     @Override
     public double visit(LtcTransaction ltc)
     {
         double transactionCost;
 
-        //if premium user them apply transaction discount
+        //check if the logged in user is premium them apply transaction discount
         if(loggedInUser.getType().matches("Premium")){
             //free transaction fee on ltc for premium users
             transactionCost = 0;

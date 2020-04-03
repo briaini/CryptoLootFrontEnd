@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.universityoflimerick.cryptolootfrontend.R;
 import com.universityoflimerick.cryptolootfrontend.Utils.bridge.CoinInfo;
 import com.universityoflimerick.cryptolootfrontend.Utils.bridge.InfoView;
@@ -21,7 +18,6 @@ import com.universityoflimerick.cryptolootfrontend.Utils.bridge.BtcView;
 import com.universityoflimerick.cryptolootfrontend.Utils.bridge.LtcView;
 import com.universityoflimerick.cryptolootfrontend.Utils.bridge.RipView;
 import com.universityoflimerick.cryptolootfrontend.Utils.bridge.EthView;
-
 import java.util.ArrayList;
 
 public class QuickViewActivity extends AppCompatActivity {
@@ -38,9 +34,12 @@ public class QuickViewActivity extends AppCompatActivity {
         setContentView(R.layout.test);
         recyclerView = findViewById(R.id.simpleGridView);
         setCustomAdapter();
-
     }
 
+    /**
+     * setViewList creates instances of both views for each coin type
+     * @return ArrayList of CoinInfo objects which define different views
+     * */
     private ArrayList<CoinInfo> setViewList() {
         int btcPic =  R.drawable.ic_bitcoin;
         int ethPic =  R.drawable.ic_ethereum;
@@ -60,6 +59,7 @@ public class QuickViewActivity extends AppCompatActivity {
     }
 
 
+    //Sets up the adapter for the recyclerview
     private void setCustomAdapter() {
         setOnClickListeners();
         viewList = setViewList();
@@ -71,6 +71,7 @@ public class QuickViewActivity extends AppCompatActivity {
 
     }
 
+    //Sets on click listeners for list items
     private void setOnClickListeners() {
         listener = new CustomAdapter.RecyclerViewClickListener(){
             @Override

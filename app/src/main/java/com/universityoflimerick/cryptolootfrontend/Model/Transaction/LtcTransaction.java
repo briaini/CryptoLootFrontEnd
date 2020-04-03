@@ -15,6 +15,16 @@ public class LtcTransaction implements TransactionElement {
         this.sendAmount = sendAmount;
     }
 
+    /**
+     * accept method calls the visit method for a specified visitor object
+     * @return double which represents the transaction cost
+     * @param visitor is the object that we call the visit method on and pass an instance of this LtcTransaction class
+     */
+    @Override
+    public double accept(TransactionCostVisitor visitor) {
+        return visitor.visit(this);
+    }
+
     public String getTransactionId() {
         return transactionId;
     }
@@ -47,8 +57,4 @@ public class LtcTransaction implements TransactionElement {
         this.sendAmount = sendAmount;
     }
 
-    @Override
-    public double accept(TransactionCostVisitor visitor) {
-        return visitor.visit(this);
-    }
 }

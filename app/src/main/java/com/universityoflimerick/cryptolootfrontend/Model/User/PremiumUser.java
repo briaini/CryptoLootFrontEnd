@@ -1,5 +1,6 @@
 package com.universityoflimerick.cryptolootfrontend.Model.User;
 
+import com.universityoflimerick.cryptolootfrontend.Activities.ChatActivity;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.Coin;
 
 import java.math.BigDecimal;
@@ -76,5 +77,12 @@ public class PremiumUser implements User {
         }
         return null;
     }
+
+    @Override
+    public void sendMessage(String message) {
+        ChatActivity.showMessage(this,message);
+    }
+
+
     public void sendPayment(String address, BigDecimal amount){}
 }

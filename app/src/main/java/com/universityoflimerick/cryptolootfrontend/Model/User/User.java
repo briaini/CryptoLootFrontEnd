@@ -11,4 +11,6 @@ public interface User {
     void request(String address, BigDecimal amount, Coin coin);
     String getType();
     Coin matchCoin(String coinName);
+    void sendMessage(String message);
+    String getUsername();
 }

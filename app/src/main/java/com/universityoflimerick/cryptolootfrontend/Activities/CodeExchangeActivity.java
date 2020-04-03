@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.universityoflimerick.cryptolootfrontend.R;
 import com.universityoflimerick.cryptolootfrontend.Adapter.CustomTabsHelper;
 import com.universityoflimerick.cryptolootfrontend.Model.User.JwtObj;
+import com.universityoflimerick.cryptolootfrontend.Utils.httpClient.ClientService;
 
 import java.io.IOException;
 

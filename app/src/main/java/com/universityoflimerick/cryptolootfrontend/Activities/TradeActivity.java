@@ -10,13 +10,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.universityoflimerick.cryptolootfrontend.R;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.Coin;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.Crypto;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.CoinCareTaker;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.CoinOriginator;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
