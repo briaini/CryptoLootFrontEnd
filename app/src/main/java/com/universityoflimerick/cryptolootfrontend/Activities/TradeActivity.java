@@ -51,8 +51,8 @@ public class TradeActivity extends AppCompatActivity {
         LTC.setExchangeRate("166.525399");
 
         bitcoinPurse    = new Coin(BTC.getName(), BTC, BTC, "5.1234");
-        ethereumPurse   = new Coin(ETH.getName(), BTC, ETH, "2.2");
-        ripplePurse     = new Coin(XRP.getName(), BTC, XRP, "37588.671246");
+        ethereumPurse   = new Coin(ETH.getName(), BTC, ETH, "24.2");
+        ripplePurse     = new Coin(XRP.getName(), BTC, XRP, "37588.67124");
         litecoinPurse   = new Coin(LTC.getName(), BTC, LTC, "50");
 
         initializeMemento();
