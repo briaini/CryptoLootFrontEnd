@@ -17,6 +17,16 @@ public class EthTransaction implements TransactionElement {
         this.sendMessage = sendMessage;
     }
 
+    /**
+     * accept method calls the visit method for a specified visitor object
+     * @return double which represents the transaction cost
+     * @param visitor is the object that we call the visit method on and pass an instance of this EthTransaction class
+     */
+    @Override
+    public double accept(TransactionCostVisitor visitor) {
+        return visitor.visit(this);
+    }
+
     public String getTransactionId() {
         return transactionId;
     }
@@ -55,10 +65,5 @@ public class EthTransaction implements TransactionElement {
 
     public void setSendMessage(String sendMessage) {
         this.sendMessage = sendMessage;
-    }
-
-    @Override
-    public double accept(TransactionCostVisitor visitor) {
-        return visitor.visit(this);
     }
 }

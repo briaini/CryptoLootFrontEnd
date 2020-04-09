@@ -9,7 +9,6 @@ public class InfoView extends CoinInfo implements Serializable {
     private int image;
     private String title;
     private String desc;
-    private Context context;
     private long num;
 
     public InfoView(Draw infoViewDraw, String title, int image, String desc, long num)
@@ -19,7 +18,6 @@ public class InfoView extends CoinInfo implements Serializable {
         this.title = title;
         this.desc = desc;
         this.num = num;
-        this.context = context;
     }
 
     @Override

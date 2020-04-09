@@ -10,17 +10,24 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.universityoflimerick.cryptolootfrontend.R;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.Coin;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.Crypto;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.CoinCareTaker;
 import com.universityoflimerick.cryptolootfrontend.Model.Coin.CoinOriginator;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class TradeActivity extends AppCompatActivity {
+    /**TradeActivity allows users to convert their cryptocurrencies against each other
+     * Contains different Coin objects, nicknamed Purses (e.g ripplePurse is used to hold users Ripple)
+     * Crypto objects are passed to Coin constructors
+     * Other various UI elements
+     * @param myCoins arraylist holds all Coin objects
+     * @param originator is used to create mementos which it uses in the future to undo operations and return previous states
+     * @param careTaker is used to keep track of all statesm decides when to roll back data
+     * @param tradeCounter increments/decrements each time a new state is created/restored
+     * */
     Coin bitcoinPurse, ethereumPurse, ripplePurse, litecoinPurse;
     Coin[] temp;
     Crypto BTC, ETH, XRP, LTC;
@@ -33,6 +40,8 @@ public class TradeActivity extends AppCompatActivity {
     CoinCareTaker careTaker;
     int tradeCounter=0;
 
+    /**the onCreate() Initialises UI elements and creates variables
+     * Alongside controlling the execution of the entire activity */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +61,11 @@ public class TradeActivity extends AppCompatActivity {
         XRP.setExchangeRate("36270.725139");
         LTC.setExchangeRate("166.525399");
 
+        /**Creates coin objects with their amounts after their exchange rates have been set
+         * Calls initializeMemento in order to save our first state */
         bitcoinPurse    = new Coin(BTC.getName(), BTC, BTC, "5.1234");
-        ethereumPurse   = new Coin(ETH.getName(), BTC, ETH, "2.2");
-        ripplePurse     = new Coin(XRP.getName(), BTC, XRP, "37588.671246");
+        ethereumPurse   = new Coin(ETH.getName(), BTC, ETH, "24.2");
+        ripplePurse     = new Coin(XRP.getName(), BTC, XRP, "37588.67124");
         litecoinPurse   = new Coin(LTC.getName(), BTC, LTC, "50");
 
         initializeMemento();
@@ -70,6 +81,8 @@ public class TradeActivity extends AppCompatActivity {
             names[i] = myCoins.get(i).getName();
         }
 
+        /**Initialise new ArrayAdapter for all available crypto types, so user can select what currencies they wish to convert
+         * Sets the adapter to both the send and receive Spinner objects */
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, names);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sendSpinner.setAdapter(adapter);
@@ -78,6 +91,9 @@ public class TradeActivity extends AppCompatActivity {
         disp = findViewById(R.id.display);
         refresh();
 
+        /**initialise buttons and create their onClickListeners
+         * If trading, state of coins will be created and stored using originator and caretaker objects before trade is made
+         * If reverting, last state of coins will be retrieved using the originator and applied to our coins */
         trade = findViewById(R.id.trade);
         trade.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -108,7 +124,7 @@ public class TradeActivity extends AppCompatActivity {
 
             }});
     }
-
+    /**refresh method is used to update the UI elements with new values, and update our coins in our arraylist */
     public void refresh(){
         String temp = bitcoinPurse.toString();
         temp += ethereumPurse.toString();
@@ -120,6 +136,9 @@ public class TradeActivity extends AppCompatActivity {
         myCoins.set(2, ripplePurse);
         myCoins.set(3, litecoinPurse);
     }
+    /**The checkInput method is where the actual Trade takes place
+     * We flick through our arraylist and if we can find the coins we wish to trade in our arrayList of coins,
+     * we perform the conversion using the coins transfer() method, if unsuccessful an error message will be sent to the user*/
     public void checkInput(String send, String receive, String amount){
         boolean result=false;
         for (int i = 0; i < myCoins.size(); i++) {
@@ -139,6 +158,8 @@ public class TradeActivity extends AppCompatActivity {
             }
         }
     }
+    /**
+     * Initialises the different objects required by the Memento pattern to save states and revert to previous states */
     private void initializeMemento(){
         temp = new Coin[4];
         originator = new CoinOriginator();
