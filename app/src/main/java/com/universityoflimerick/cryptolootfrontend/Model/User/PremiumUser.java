@@ -14,6 +14,7 @@ public class PremiumUser implements User {
 
     /**
      * User with a premium type.
+     * User  has an arrayList of coins.
      */
     public PremiumUser(){
         this.type = "premium";

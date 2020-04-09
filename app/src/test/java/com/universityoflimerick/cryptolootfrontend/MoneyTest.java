@@ -1,7 +1,7 @@
 package com.universityoflimerick.cryptolootfrontend;
 
-import com.universityoflimerick.cryptolootfrontend.dillon.Coin;
-import com.universityoflimerick.cryptolootfrontend.dillon.Crypto;
+import com.universityoflimerick.cryptolootfrontend.Model.Coin.Coin;
+import com.universityoflimerick.cryptolootfrontend.Model.Coin.Crypto;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class MoneyTest {
 
     /**
      * Test that a transfer of bitcoin to ethereum works with a
-     * specifeid conversion rate
+     * specified conversion rate
      */
     @Test
     public void money_correct_transfer_test(){

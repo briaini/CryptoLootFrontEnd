@@ -1,10 +1,10 @@
 package com.universityoflimerick.cryptolootfrontend;
 
-import com.universityoflimerick.cryptolootfrontend.adam.User.User;
-import com.universityoflimerick.cryptolootfrontend.adam.User.UserFactory;
-import com.universityoflimerick.cryptolootfrontend.adam.command.PayCoin;
-import com.universityoflimerick.cryptolootfrontend.dillon.Coin;
-import com.universityoflimerick.cryptolootfrontend.dillon.Crypto;
+import com.universityoflimerick.cryptolootfrontend.Model.Coin.Coin;
+import com.universityoflimerick.cryptolootfrontend.Model.Coin.Crypto;
+import com.universityoflimerick.cryptolootfrontend.Model.Coin.PayCoin;
+import com.universityoflimerick.cryptolootfrontend.Model.User.User;
+import com.universityoflimerick.cryptolootfrontend.Utils.factory.UserFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,6 @@ import static org.junit.Assert.assertNotEquals;
 
 public class VisitorTest {
 
-    private PayCoin payCoin;
     private BigDecimal roundedTest, roundedAmount;
 
     /**
@@ -32,7 +31,7 @@ public class VisitorTest {
         Coin coin = new Coin(BTC.getName(), BTC, BTC, "4.0000");
         user.addCoin(coin);
         BigDecimal amount = new BigDecimal("1.000");
-        payCoin = new PayCoin(user, "abc123", amount, coin);
+        PayCoin payCoin = new PayCoin(user, "abc123", amount, coin);
         double arithmetic = 1.000 * .02;
         double newAmount = 1.000 - arithmetic;
         BigDecimal testAmount = payCoin.getTransactionFees();

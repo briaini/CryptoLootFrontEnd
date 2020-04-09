@@ -15,6 +15,7 @@ public class RegularUser implements User {
 
     /**
      * User with a regular type.
+     * User  has an arrayList of coins.
      */
     public RegularUser(){
         this.type = "regular";

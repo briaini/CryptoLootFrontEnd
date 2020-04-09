@@ -1,5 +1,6 @@
 package com.universityoflimerick.cryptolootfrontend;
 
+import com.universityoflimerick.cryptolootfrontend.Model.Coin.PayCoin;
 import com.universityoflimerick.cryptolootfrontend.Model.User.User;
 import com.universityoflimerick.cryptolootfrontend.Utils.factory.UserFactory;
 import com.universityoflimerick.cryptolootfrontend.Utils.command.ActionInvoker;
@@ -18,11 +19,6 @@ import static org.junit.Assert.assertNotEquals;
 
 public class CommandTest {
 
-    private ActionInvoker actionInvoker;
-    private CoinAction payCoin;
-    private User user;
-    private Coin coin;
-    private PayCoin transaction;
     private BigDecimal coinAmount;
     private Coin userCoin;
     private BigDecimal actualAmount;
@@ -33,17 +29,17 @@ public class CommandTest {
      */
     @Before
     public void setup(){
-        actionInvoker = new ActionInvoker();
+        ActionInvoker actionInvoker = new ActionInvoker();
         UserFactory userFactory = new UserFactory();
-        user = userFactory.getUser("regular");
+        User user = userFactory.getUser("regular");
         Crypto BTC = new Crypto("Bitcoin");
-        coin = new Coin(BTC.getName(), BTC, BTC, "5.0000");
+        Coin coin = new Coin(BTC.getName(), BTC, BTC, "5.0000");
         user.addCoin(coin);
         BigDecimal amount = new BigDecimal("2.000");
-        payCoin = new PayCoin(user, "abc123", amount, coin);
+        CoinAction payCoin = new PayCoin(user, "abc123", amount, coin);
         User transactionUser = userFactory.getUser("regular");
         BigDecimal transactionAmount = new BigDecimal("2");
-        transaction = new PayCoin(transactionUser, "", transactionAmount, coin);
+        PayCoin transaction = new PayCoin(transactionUser, "", transactionAmount, coin);
         actionInvoker.addAction(payCoin);
         actionInvoker.executeAction();
 
