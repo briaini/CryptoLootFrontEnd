@@ -4,6 +4,6 @@
     <string name="com_auth0_domain">dev-4d3z8kfx.eu.auth0.com</string>
     <string name="login">Log in</string>
     <string name="logout">Log out</string>
-   <string name="ipaddress">10.0.2.2</string>
+    <string name="ipaddress">10.0.2.2</string>
 
 </resources>

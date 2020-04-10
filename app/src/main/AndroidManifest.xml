@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.ProfilePageActivity"></activity>
+        <activity android:name=".Activities.BuyCoinActivity"></activity>
+        <activity android:name=".Activities.ProfilePageActivity" />
         <activity android:name=".Activities.CodeExchangeActivity">
             <intent-filter android:label="testFilter2">
                 <action android:name="android.intent.action.VIEW" />
@@ -39,13 +40,11 @@
                     android:scheme="itsabeatlessongman" />
             </intent-filter>
         </activity>
-        <activity android:name=".Utils.bridge.InfoViewActivity">
-        </activity>
-        <activity android:name=".Activities.QuickViewActivity">
-        </activity>
-        <activity android:name=".Activities.PaymentActivity"></activity>
-        <activity android:name=".Activities.TradeActivity"/>
-        <activity android:name=".Activities.ChatActivity"/>
+        <activity android:name=".Utils.bridge.InfoViewActivity"></activity>
+        <activity android:name=".Activities.QuickViewActivity"></activity>
+        <activity android:name=".Activities.PaymentActivity" />
+        <activity android:name=".Activities.TradeActivity" />
+        <activity android:name=".Activities.ChatActivity" />
     </application>
 
 </manifest>

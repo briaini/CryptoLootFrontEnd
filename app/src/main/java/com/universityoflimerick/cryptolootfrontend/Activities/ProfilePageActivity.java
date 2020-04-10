@@ -88,6 +88,15 @@ public class ProfilePageActivity extends AppCompatActivity {
             }
         });
 
+        Button buyCoinBtn = findViewById(R.id.buyCoinBtn);
+        buyCoinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfilePageActivity.this, BuyCoinActivity.class);
+                startActivity(intent);
+            }
+        });
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +129,6 @@ public class ProfilePageActivity extends AppCompatActivity {
         JsonObject json = new JsonObject();
         json.addProperty("name", eT.getText().toString());
         String jsonString = json.toString();
-
 
         RequestBody body = RequestBody.create(jsonString, JSON);
         Request request = new Request.Builder()
