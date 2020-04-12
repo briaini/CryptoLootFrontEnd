@@ -35,7 +35,7 @@ public class ProfilePageActivity extends AppCompatActivity {
     private String jwt;
     private Handler mHandler;
     private ImageButton imageButton;
-    private Button b1, b2;
+    private Button b1, b2, saveBtn, homeBtn, msgButton, buyCoinBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +44,19 @@ public class ProfilePageActivity extends AppCompatActivity {
 
         mHandler = new Handler(Looper.getMainLooper());
 
-        eT = findViewById(R.id.profileNameEditText);
-
+        //Retrieve profile data and jwt passed in intent from CodeExchangeActivity
         Intent intent = getIntent();
         String message = intent.getStringExtra(CodeExchangeActivity.EXTRA_MESSAGE);
         jwt = intent.getStringExtra(CodeExchangeActivity.EXTRA_MESSAGETWO);
+
+        eT = findViewById(R.id.profileNameEditText);
         imageButton = findViewById(R.id.imageButton);
         b1 = findViewById(R.id.button3);
         b2 = findViewById(R.id.button4);
 
-        System.out.println("beforeGSON " + message);
-
+        //If user has previously saved profile data
+        //map data to ProfilePage object and set text view
+        //else set text with default text
         if (message.contains("name")) {
             Gson gson = new Gson();
             ProfilePage profilePage = gson.fromJson(message, ProfilePage.class);
@@ -63,7 +65,7 @@ public class ProfilePageActivity extends AppCompatActivity {
             eT.setText("Save name if you wanna");
         }
 
-        Button saveBtn = findViewById(R.id.saveProfileBtn);
+        saveBtn = findViewById(R.id.saveProfileBtn);
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +73,7 @@ public class ProfilePageActivity extends AppCompatActivity {
             }
         });
 
-        Button homeBtn = findViewById(R.id.homeBtn);
+        homeBtn = findViewById(R.id.homeBtn);
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +81,7 @@ public class ProfilePageActivity extends AppCompatActivity {
             }
         });
 
-        Button msgButton = findViewById(R.id.msgButton);
+        msgButton = findViewById(R.id.msgButton);
         msgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +90,7 @@ public class ProfilePageActivity extends AppCompatActivity {
             }
         });
 
-        Button buyCoinBtn = findViewById(R.id.buyCoinBtn);
+        buyCoinBtn = findViewById(R.id.buyCoinBtn);
         buyCoinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,14 +124,20 @@ public class ProfilePageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * saveDetails saves edited profile data
+     */
     public void saveDetails() {
         String url = "http://"+getString(R.string.ipaddress)+":8080/api/userdetails";
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
+
+        //add profile data property to json object
         JsonObject json = new JsonObject();
         json.addProperty("name", eT.getText().toString());
         String jsonString = json.toString();
 
+        //create request, passing json string as body
         RequestBody body = RequestBody.create(jsonString, JSON);
         Request request = new Request.Builder()
                 .post(body)
@@ -137,6 +145,7 @@ public class ProfilePageActivity extends AppCompatActivity {
                 .addHeader("Authorization", jwt)
                 .build();
 
+        //Retrieve http client and enqueue call
         ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -161,12 +170,20 @@ public class ProfilePageActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * homePage creates intent and brings user back to CodeExchangeActivity
+     * intent used to check if user arrived at CodeExchangeActivity from ProfilePageActivity
+     */
     public void homePage(){
         Intent intent = new Intent(this, CodeExchangeActivity.class);
         intent.putExtra(EXTRA_FROMPROFILE, "true");
         startActivity(intent);
     }
 
+    /**
+     * showToast displays response from saving profile data
+     * @param response backend response from saving profile data
+     */
     public void showToast(String response) {
         Toast.makeText(this, response, Toast.LENGTH_LONG).show();
         //Following code just closes keyboard. Overly complex thanks to Android API

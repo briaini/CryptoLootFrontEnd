@@ -43,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * openCustomTab
+     * create cryptographically random key "code verifier" as well as hash digest "code challenge"
+     * store code verifier in shared preferences
+     * create CustomTab launching OAuth login uri, passing code challenge and client id
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     */
     public void openCustomTab() throws UnsupportedEncodingException, NoSuchAlgorithmException {
         SecureRandom sr = new SecureRandom();
         byte[] code = new byte[32];

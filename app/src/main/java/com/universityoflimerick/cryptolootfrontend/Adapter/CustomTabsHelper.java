@@ -8,7 +8,6 @@ import android.net.Uri;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CustomTabsHelper {
     private static final String ACTION_CUSTOM_TABS_CONNECTION =
             "android.support.customtabs.action.CustomTabsService";

@@ -33,6 +33,7 @@ public class BuyCoinActivity extends AppCompatActivity {
     private Handler mHandler;
     private JwtObj jwt;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +43,7 @@ public class BuyCoinActivity extends AppCompatActivity {
         purchaseAmountEditText = findViewById(R.id.purchaseAmountEditText);
         purchaseCoinBtn = findViewById(R.id.purchaseCoinBtn);
 
+        //get access token from SharedPreferences
         SharedPreferences pref = getApplicationContext().getSharedPreferences("ShPref", 0);
         jwt = new JwtObj();
         jwt.setAccess_token(pref.getString("accesstoken", null));
@@ -54,20 +56,26 @@ public class BuyCoinActivity extends AppCompatActivity {
         });
     }
 
+    //helper method to add "Bearer " to start of access token
     public String getJwtHeader(){
         return "Bearer " + jwt.getAccess_token();
     }
 
+    /**
+     * purchaseCoin calls endpoint exposed by backend used to simulate purchasing coins for USD
+     * shows response using a thread to display toast message
+     */
     public void purchaseCoin() {
-        String url = "http://"+getString(R.string.ipaddress)+":8080/api/purchase";
-
+        //Takes amount entered in text view and adds it to json object.
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
         JsonObject json = new JsonObject();
         json.addProperty("amount", purchaseAmountEditText.getText().toString());
 
-        String jsonString = json.toString();
 
+        //Pass JSON object as string in request body to endpoint
+        String url = "http://"+getString(R.string.ipaddress)+":8080/api/purchase";
+        String jsonString = json.toString();
         RequestBody body = RequestBody.create(jsonString, JSON);
         Request request = new Request.Builder()
                 .post(body)
@@ -75,6 +83,7 @@ public class BuyCoinActivity extends AppCompatActivity {
                 .addHeader("Authorization", getJwtHeader())
                 .build();
 
+        //Retrieve http client and enqueue call
         ClientService.client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -99,6 +108,9 @@ public class BuyCoinActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    showToast displays toast message and closes keyboard
+     */
     public void showToast(String response) {
         Toast.makeText(this, response, Toast.LENGTH_LONG).show();
 //        //Following code just closes keyboard. Overly complex thanks to Android API
